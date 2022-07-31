@@ -1,4 +1,4 @@
-package com.example.orderlite.domain
+package com.example.orderlite.domain.orderRecord
 
 data class OrderRecord(
     val id:Int,
