@@ -1,4 +1,4 @@
-package com.example.orderlite.data
+package com.example.orderlite.data.orderRecord
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
@@ -13,5 +13,5 @@ interface OrderRecordDbModelDao {
     @Query("SELECT * FROM order_record WHERE orderId = :orderId")
     fun getOrderRecordList(orderId:Int):LiveData<List<OrderRecordDbModel>>
     @Query("SELECT * FROM order_record WHERE id = :orderRecordId")
-    fun getOrderRecord(orderRecordId:Int):OrderRecordDbModel
+    fun getOrderRecord(orderRecordId:Int): OrderRecordDbModel
 }

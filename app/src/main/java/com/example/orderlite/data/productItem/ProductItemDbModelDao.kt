@@ -1,4 +1,4 @@
-package com.example.orderlite.data
+package com.example.orderlite.data.productItem
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
@@ -15,5 +15,5 @@ interface ProductItemDbModelDao {
     @Query("SELECT * FROM product_item")
     fun getProductItemList():LiveData<List<ProductItemDbModel>>
     @Query("SELECT * FROM product_item WHERE id = :productItemId")
-    fun getProductItem(productItemId:Int):ProductItemDbModel
+    fun getProductItem(productItemId:Int): ProductItemDbModel
 }

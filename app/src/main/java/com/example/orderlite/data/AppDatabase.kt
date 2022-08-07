@@ -4,6 +4,14 @@ import android.app.Application
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.orderlite.data.order.OrderDbModel
+import com.example.orderlite.data.order.OrderDbModelDao
+import com.example.orderlite.data.orderRecord.OrderRecordDbModel
+import com.example.orderlite.data.orderRecord.OrderRecordDbModelDao
+import com.example.orderlite.data.productItem.ProductItemDbModel
+import com.example.orderlite.data.productItem.ProductItemDbModelDao
+import com.example.orderlite.data.unitsOM.UnitsOMDbModel
+import com.example.orderlite.data.unitsOM.UnitsOMDbModelDao
 
 @Database(
     entities = [
@@ -14,6 +22,12 @@ import androidx.room.RoomDatabase
                ],
 version = 1, exportSchema = false)
 abstract class AppDatabase:RoomDatabase() {
+
+    abstract fun orderDbModelDao(): OrderDbModelDao
+    abstract fun orderRecordDbModelDao(): OrderRecordDbModelDao
+    abstract fun productItemDbModelDao(): ProductItemDbModelDao
+    abstract fun unitsOMDBModelDao(): UnitsOMDbModelDao
+
     companion object{
         private var INSTANCE:AppDatabase?=null
         private val LOCK = Any()

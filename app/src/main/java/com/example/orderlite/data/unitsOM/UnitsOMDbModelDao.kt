@@ -1,4 +1,4 @@
-package com.example.orderlite.data
+package com.example.orderlite.data.unitsOM
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
@@ -15,5 +15,5 @@ interface UnitsOMDbModelDao {
     @Query("SELECT * FROM units_o_m")
     fun getUnitsOMList():LiveData<List<UnitsOMDbModel>>
     @Query("SELECT * FROM units_o_m where id = :unitOMID")
-    fun getUnitOM(unitOMID:Int)
+    fun getUnitOM(unitOMID:Int):UnitsOMDbModel
 }

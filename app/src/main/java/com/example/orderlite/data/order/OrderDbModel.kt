@@ -1,4 +1,4 @@
-package com.example.orderlite.data
+package com.example.orderlite.data.order
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
