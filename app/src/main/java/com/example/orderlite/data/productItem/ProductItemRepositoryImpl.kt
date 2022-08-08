@@ -1,6 +1,8 @@
 package com.example.orderlite.data.productItem
 
 import android.app.Application
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import com.example.orderlite.data.AppDatabase
 import com.example.orderlite.domain.productItem.ProductItem
 import com.example.orderlite.domain.productItem.ProductItemRepository
@@ -21,9 +23,10 @@ class ProductItemRepositoryImpl(application: Application):ProductItemRepository 
         productItemDao.addProductItem(mapper.mapProductItemToDb(productItem))
     }
 
-    override fun getProductItemList(): List<ProductItem> {
-        TODO("Not yet implemented")
-    }
+    override fun getProductItemList(): LiveData<List<ProductItem>> = Transformations
+        .map(productItemDao.getProductItemList()){
+            mapper.mapListDBToListProductItem(it)
+        }
 
     override fun getProductItem(productItemId: Int): ProductItem {
         val productItemDB = productItemDao.getProductItem(productItemId)

@@ -1,6 +1,8 @@
 package com.example.orderlite.data.unitsOM
 
 import android.app.Application
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import com.example.orderlite.data.AppDatabase
 import com.example.orderlite.domain.unitsOfMeasurement.UnitsOMRepository
 import com.example.orderlite.domain.unitsOfMeasurement.UnitsOfMeasurement
@@ -22,9 +24,10 @@ class UnitsOMRepositoryImpl(application: Application):UnitsOMRepository {
         unitsOMDbModelDao.addUnitOM(mapper.mapUnitOMTODB(unitsOM))
     }
 
-    override fun getListUnitsOM(): List<UnitsOfMeasurement> {
-        TODO("Not yet implemented")
-    }
+    override fun getListUnitsOM(): LiveData<List<UnitsOfMeasurement>> = Transformations
+        .map(unitsOMDbModelDao.getUnitsOMList()){
+            mapper.mapListDBToListUnitsOM(it)
+        }
 
     override fun getUnitsOM(unitOMId: Int): UnitsOfMeasurement {
         val unitOMDB = unitsOMDbModelDao.getUnitOM(unitOMId)

@@ -1,5 +1,7 @@
 package com.example.orderlite.domain.productItem
 
+import androidx.lifecycle.LiveData
+
 interface ProductItemRepository {
     fun addProductItem(productItem:ProductItem)
 
@@ -7,7 +9,7 @@ interface ProductItemRepository {
 
     fun editProductItemUseCase(productItem: ProductItem)
 
-    fun getProductItemList():List<ProductItem>
+    fun getProductItemList():LiveData<List<ProductItem>>
 
     fun getProductItem(productItemId:Int):ProductItem
 }

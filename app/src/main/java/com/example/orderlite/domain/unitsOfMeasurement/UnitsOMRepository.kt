@@ -1,5 +1,7 @@
 package com.example.orderlite.domain.unitsOfMeasurement
 
+import androidx.lifecycle.LiveData
+
 interface UnitsOMRepository {
     fun addUnitsOM(unitsOM:UnitsOfMeasurement)
 
@@ -7,7 +9,7 @@ interface UnitsOMRepository {
 
     fun editUnitsOM(unitsOM:UnitsOfMeasurement)
 
-    fun getListUnitsOM():List<UnitsOfMeasurement>
+    fun getListUnitsOM():LiveData<List<UnitsOfMeasurement>>
 
     fun getUnitsOM(unitOMId:Int):UnitsOfMeasurement
 

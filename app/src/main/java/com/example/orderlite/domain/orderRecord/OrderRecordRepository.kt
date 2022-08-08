@@ -1,5 +1,7 @@
 package com.example.orderlite.domain.orderRecord
 
+import androidx.lifecycle.LiveData
+
 interface OrderRecordRepository {
     fun addOrderRecord(orderRecord: OrderRecord)
 
@@ -7,7 +9,7 @@ interface OrderRecordRepository {
 
     fun editOrderRecord(orderRecord: OrderRecord)
 
-    fun getOrderRecordList(orderId:Int):List<OrderRecord>
+    fun getOrderRecordList(orderId:Int):LiveData<List<OrderRecord>>
 
     fun getOrderRecord(orderRecordId:Int):OrderRecord
 }
