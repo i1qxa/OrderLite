@@ -5,14 +5,14 @@ import com.example.orderlite.domain.order.Order
 class OrderMapper {
     fun mapOrderToDBModel(order: Order):OrderDbModel{
         return OrderDbModel(
-            id = order.id,
-            date = order.date
+            orderId = order.id,
+            orderDate = order.date
         )
     }
     fun mapDBModelToOrder(orderDbModel: OrderDbModel):Order{
         return Order(
-            id = orderDbModel.id,
-            date = orderDbModel.date
+            id = orderDbModel.orderId,
+            date = orderDbModel.orderDate
         )
     }
     fun mapListOrderDBModelTOListOrder(list:List<OrderDbModel>) = list.map { mapDBModelToOrder(it) }

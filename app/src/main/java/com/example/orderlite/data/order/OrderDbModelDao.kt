@@ -10,7 +10,7 @@ import androidx.room.Query
 interface OrderDbModelDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addOrder(order: OrderDbModel)
-    @Query("SELECT * FROM `order` WHERE date > :dateStart and date < :dateEnd")
+    @Query("SELECT * FROM `order` WHERE orderDate > :dateStart and orderDate < :dateEnd")
     fun getOrderList(dateStart:String,dateEnd:String):LiveData<List<OrderDbModel>>
 
 }

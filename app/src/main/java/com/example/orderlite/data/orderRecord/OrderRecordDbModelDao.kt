@@ -8,10 +8,10 @@ interface OrderRecordDbModelDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addOrderRecord(orderRecordDbModel: OrderRecordDbModel)
-    @Query("DELETE FROM order_record WHERE id = :id")
+    @Query("DELETE FROM order_record WHERE orderId = :orderId")
     fun deleteOrderRecord(id:Int)
     @Query("SELECT * FROM order_record WHERE orderId = :orderId")
     fun getOrderRecordList(orderId:Int):LiveData<List<OrderRecordDbModel>>
-    @Query("SELECT * FROM order_record WHERE id = :orderRecordId")
+    @Query("SELECT * FROM order_record WHERE orderId = :orderRecordId")
     fun getOrderRecord(orderRecordId:Int): OrderRecordDbModel
 }

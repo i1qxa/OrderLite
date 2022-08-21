@@ -6,7 +6,11 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "units_o_m")
 data class UnitsOMDbModel(
-    @PrimaryKey(autoGenerate = true) val id:Int,
-    @ColumnInfo val name:String,
-    @ColumnInfo val shortName:String
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "unit_id")
+    val unitId:Int,
+    @ColumnInfo(name = "unit_name")
+    val unitName:String,
+    @ColumnInfo(name = "unit_short_name")
+    val unitShortName:String
 )

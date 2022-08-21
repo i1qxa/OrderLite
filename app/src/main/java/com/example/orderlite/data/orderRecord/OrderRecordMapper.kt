@@ -5,7 +5,7 @@ import com.example.orderlite.domain.orderRecord.OrderRecord
 class OrderRecordMapper {
     fun mapOrderRecordToDB(orderRecord: OrderRecord):OrderRecordDbModel{
         return OrderRecordDbModel(
-            id = orderRecord.id,
+            orderRecordId = orderRecord.id,
             orderId =  orderRecord.orderId,
             productId = orderRecord.productId,
             unitId = orderRecord.unitId,
@@ -15,7 +15,7 @@ class OrderRecordMapper {
     }
     fun mapDBToOrderRecord(orderRecordDbModel: OrderRecordDbModel):OrderRecord{
         return OrderRecord(
-            id = orderRecordDbModel.id,
+            id = orderRecordDbModel.orderRecordId,
             orderId =  orderRecordDbModel.orderId,
             productId = orderRecordDbModel.productId,
             unitId = orderRecordDbModel.unitId,

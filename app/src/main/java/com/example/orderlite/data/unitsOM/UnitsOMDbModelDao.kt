@@ -10,10 +10,10 @@ import androidx.room.Query
 interface UnitsOMDbModelDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addUnitOM(unitsOM: UnitsOMDbModel)
-    @Query("DELETE FROM units_o_m WHERE id = :unitOMId")
+    @Query("DELETE FROM units_o_m WHERE orderId = :unitOMId")
     fun deleteUnitOM(unitOMId:Int)
     @Query("SELECT * FROM units_o_m")
     fun getUnitsOMList():LiveData<List<UnitsOMDbModel>>
-    @Query("SELECT * FROM units_o_m where id = :unitOMID")
+    @Query("SELECT * FROM units_o_m where orderId = :unitOMID")
     fun getUnitOM(unitOMID:Int):UnitsOMDbModel
 }

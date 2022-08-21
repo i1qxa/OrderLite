@@ -5,16 +5,16 @@ import com.example.orderlite.domain.productItem.ProductItem
 class ProductItemMapper {
     fun mapProductItemToDb(productItem: ProductItem):ProductItemDbModel{
         return ProductItemDbModel(
-            id = productItem.id,
+            productItemId = productItem.id,
             defaultUnitId = productItem.defaultUnitId,
-            name = productItem.name
+            productItemName = productItem.name
         )
     }
     fun mapDBToProductItem(productItemDB: ProductItemDbModel):ProductItem{
         return ProductItem(
-            id = productItemDB.id,
+            id = productItemDB.productItemId,
             defaultUnitId = productItemDB.defaultUnitId,
-            name = productItemDB.name
+            name = productItemDB.productItemName
         )
     }
     fun mapListDBToListProductItem(list:List<ProductItemDbModel>) = list.map { mapDBToProductItem(it) }
