@@ -6,10 +6,11 @@ import androidx.core.view.WindowCompat
 import androidx.navigation.ui.AppBarConfiguration
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.orderlite.R
 import com.example.orderlite.databinding.ActivityMainBinding
-import com.example.orderlite.presentation.unitsOM.ListUnitsOMFragment
+import com.example.orderlite.presentation.listUnitsOM.ListUnitsOMFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,8 +24,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        launchNewFragment(ListUnitsOMFragment.newInstance())
 
     }
+
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -57,6 +61,7 @@ class MainActivity : AppCompatActivity() {
                 .addToBackStack(null)
                 .commit()
         }
+
     }
 
 }

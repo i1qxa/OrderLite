@@ -1,4 +1,4 @@
-package com.example.orderlite.presentation.unitsOM
+package com.example.orderlite.presentation.listUnitsOM
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

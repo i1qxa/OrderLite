@@ -12,6 +12,7 @@
         <entry key="app/src/main/res/layout/fragment_list_order.xml" value="0.2765625" />
         <entry key="app/src/main/res/layout/fragment_list_units_o_m.xml" value="0.2765625" />
         <entry key="app/src/main/res/layout/fragment_order_body.xml" value="0.2765625" />
+        <entry key="app/src/main/res/layout/fragment_unit_o_m.xml" value="0.2765625" />
         <entry key="app/src/main/res/layout/unit_o_m_item.xml" value="0.2755208333333333" />
         <entry key="app/src/main/res/layout/unit_o_m_item_edit.xml" value="0.13333333333333333" />
         <entry key="app/src/main/res/menu/menu_main.xml" value="0.2625" />

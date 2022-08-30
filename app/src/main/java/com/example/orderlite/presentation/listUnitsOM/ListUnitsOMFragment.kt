@@ -1,4 +1,4 @@
-package com.example.orderlite.presentation.unitsOM
+package com.example.orderlite.presentation.listUnitsOM
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,6 +8,9 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.orderlite.R
 import com.example.orderlite.databinding.FragmentListUnitsOMBinding
+import com.example.orderlite.presentation.listUnitsOM.unitOm.MODE_ADD
+import com.example.orderlite.presentation.listUnitsOM.unitOm.SCREEN_MODE
+import com.example.orderlite.presentation.listUnitsOM.unitOm.UnitOMFragment
 
 class ListUnitsOMFragment : Fragment() {
     private lateinit var viewModel:ListUnitsOMViewModel
@@ -32,6 +35,23 @@ class ListUnitsOMFragment : Fragment() {
         recyclerView.adapter = adapter
         viewModel.listUnitsOM.observe(viewLifecycleOwner){
             adapter.submitList(it)
+        }
+        setupOnClickListeners()
+    }
+
+    fun setupOnClickListeners(){
+        binding.fabCreateUnitOM.setOnClickListener{
+            launchUnitOMFragment(UnitOMFragment.newInstance(MODE_ADD))
+        }
+    }
+
+    fun launchUnitOMFragment(fragment:UnitOMFragment){
+        parentFragmentManager.apply {
+            popBackStack()
+            beginTransaction()
+                .replace(R.id.mainContainerView,fragment)
+                .addToBackStack(null)
+                .commit()
         }
 
     }
