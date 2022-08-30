@@ -3,13 +3,13 @@ package com.example.orderlite.domain.productItem
 import androidx.lifecycle.LiveData
 
 interface ProductItemRepository {
-    fun addProductItem(productItem:ProductItem)
+    suspend fun addProductItem(productItem:ProductItem)
 
-    fun deleteProductItem(productItemId:Int)
+    suspend fun deleteProductItem(productItemId:Int)
 
-    fun editProductItemUseCase(productItem: ProductItem)
+    suspend fun editProductItemUseCase(productItem: ProductItem)
 
     fun getProductItemList():LiveData<List<ProductItem>>
 
-    fun getProductItem(productItemId:Int):ProductItem
+    suspend fun getProductItem(productItemId:Int):ProductItem
 }

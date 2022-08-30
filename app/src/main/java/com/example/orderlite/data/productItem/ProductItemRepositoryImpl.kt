@@ -11,15 +11,15 @@ class ProductItemRepositoryImpl(application: Application):ProductItemRepository 
     private val productItemDao = AppDatabase.getInstance(application).productItemDbModelDao()
     private val mapper = ProductItemMapper()
 
-    override fun addProductItem(productItem: ProductItem) {
+    override suspend fun addProductItem(productItem: ProductItem) {
         productItemDao.addProductItem(mapper.mapProductItemToDb(productItem))
     }
 
-    override fun deleteProductItem(productItemId: Int) {
+    override suspend fun deleteProductItem(productItemId: Int) {
         productItemDao.deleteProductItem(productItemId)
     }
 
-    override fun editProductItemUseCase(productItem: ProductItem) {
+    override suspend fun editProductItemUseCase(productItem: ProductItem) {
         productItemDao.addProductItem(mapper.mapProductItemToDb(productItem))
     }
 
@@ -28,7 +28,7 @@ class ProductItemRepositoryImpl(application: Application):ProductItemRepository 
             mapper.mapListDBToListProductItem(it)
         }
 
-    override fun getProductItem(productItemId: Int): ProductItem {
+    override suspend fun getProductItem(productItemId: Int): ProductItem {
         val productItemDB = productItemDao.getProductItem(productItemId)
         return mapper.mapDBToProductItem(productItemDB)
     }

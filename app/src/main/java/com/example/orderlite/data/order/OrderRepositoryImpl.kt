@@ -6,6 +6,7 @@ import androidx.lifecycle.Transformations
 import com.example.orderlite.data.AppDatabase
 import com.example.orderlite.domain.order.Order
 import com.example.orderlite.domain.order.OrderRepository
+import kotlinx.coroutines.flow.Flow
 
 class OrderRepositoryImpl(application: Application):OrderRepository {
 
@@ -17,7 +18,7 @@ class OrderRepositoryImpl(application: Application):OrderRepository {
             mapper.mapListOrderDBModelTOListOrder(it)
         }
 
-    override fun addOrder(order: Order) {
+    override suspend  fun addOrder(order: Order) {
         orderDBModelDao.addOrder(mapper.mapOrderToDBModel(order))
     }
 

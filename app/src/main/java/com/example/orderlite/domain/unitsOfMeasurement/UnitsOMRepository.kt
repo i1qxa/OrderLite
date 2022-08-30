@@ -3,14 +3,14 @@ package com.example.orderlite.domain.unitsOfMeasurement
 import androidx.lifecycle.LiveData
 
 interface UnitsOMRepository {
-    fun addUnitsOM(unitsOM:UnitsOfMeasurement)
+    suspend fun addUnitsOM(unitsOM:UnitsOfMItem)
 
-    fun deleteUnitsOM(unitsOMId:Int)
+    suspend fun deleteUnitsOM(unitsOMId:Int)
 
-    fun editUnitsOM(unitsOM:UnitsOfMeasurement)
+    suspend fun editUnitsOM(unitsOM:UnitsOfMItem)
 
-    fun getListUnitsOM():LiveData<List<UnitsOfMeasurement>>
+    fun getListUnitsOM():LiveData<List<UnitsOfMItem>>
 
-    fun getUnitsOM(unitOMId:Int):UnitsOfMeasurement
+    suspend fun getUnitsOM(unitOMId:Int):UnitsOfMItem
 
 }

@@ -5,31 +5,31 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.example.orderlite.data.AppDatabase
 import com.example.orderlite.domain.unitsOfMeasurement.UnitsOMRepository
-import com.example.orderlite.domain.unitsOfMeasurement.UnitsOfMeasurement
+import com.example.orderlite.domain.unitsOfMeasurement.UnitsOfMItem
 
 class UnitsOMRepositoryImpl(application: Application):UnitsOMRepository {
 
     private val unitsOMDbModelDao = AppDatabase.getInstance(application).unitsOMDBModelDao()
     private val mapper = UnitsOMMapper()
 
-    override fun addUnitsOM(unitsOM: UnitsOfMeasurement) {
+    override suspend fun addUnitsOM(unitsOM: UnitsOfMItem) {
         unitsOMDbModelDao.addUnitOM(mapper.mapUnitOMTODB(unitsOM))
     }
 
-    override fun deleteUnitsOM(unitsOMId: Int) {
+    override suspend fun deleteUnitsOM(unitsOMId: Int) {
         unitsOMDbModelDao.deleteUnitOM(unitsOMId)
     }
 
-    override fun editUnitsOM(unitsOM: UnitsOfMeasurement) {
+    override suspend fun editUnitsOM(unitsOM: UnitsOfMItem) {
         unitsOMDbModelDao.addUnitOM(mapper.mapUnitOMTODB(unitsOM))
     }
 
-    override fun getListUnitsOM(): LiveData<List<UnitsOfMeasurement>> = Transformations
+    override fun getListUnitsOM(): LiveData<List<UnitsOfMItem>> = Transformations
         .map(unitsOMDbModelDao.getUnitsOMList()){
             mapper.mapListDBToListUnitsOM(it)
         }
 
-    override fun getUnitsOM(unitOMId: Int): UnitsOfMeasurement {
+    override suspend fun getUnitsOM(unitOMId: Int): UnitsOfMItem {
         val unitOMDB = unitsOMDbModelDao.getUnitOM(unitOMId)
         return mapper.mapDBToUnitOM(unitOMDB)
     }

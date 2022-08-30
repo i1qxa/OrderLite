@@ -9,11 +9,11 @@ import androidx.room.Query
 @Dao
 interface ProductItemDbModelDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addProductItem(productItem: ProductItemDbModel)
-    @Query("DELETE FROM product_item WHERE orderId = :productItemId")
-    fun deleteProductItem(productItemId:Int)
+    suspend fun addProductItem(productItem: ProductItemDbModel)
+    @Query("DELETE FROM product_item WHERE product_item_id = :productItemId")
+    suspend fun deleteProductItem(productItemId:Int)
     @Query("SELECT * FROM product_item")
     fun getProductItemList():LiveData<List<ProductItemDbModel>>
-    @Query("SELECT * FROM product_item WHERE orderId = :productItemId")
-    fun getProductItem(productItemId:Int): ProductItemDbModel
+    @Query("SELECT * FROM product_item WHERE product_item_id = :productItemId")
+    suspend fun getProductItem(productItemId:Int): ProductItemDbModel
 }

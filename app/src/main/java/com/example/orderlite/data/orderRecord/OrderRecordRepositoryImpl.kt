@@ -12,15 +12,15 @@ class OrderRecordRepositoryImpl(application: Application):OrderRecordRepository 
     private val orderRecordDao = AppDatabase.getInstance(application).orderRecordDbModelDao()
     private val mapper = OrderRecordMapper()
 
-    override fun addOrderRecord(orderRecord: OrderRecord) {
+    override suspend  fun addOrderRecord(orderRecord: OrderRecord) {
         orderRecordDao.addOrderRecord(mapper.mapOrderRecordToDB(orderRecord))
     }
 
-    override fun deleteOrderRecord(orderRecordId: Int) {
+    override suspend fun deleteOrderRecord(orderRecordId: Int) {
         orderRecordDao.deleteOrderRecord(orderRecordId)
     }
 
-    override fun editOrderRecord(orderRecord: OrderRecord) {
+    override suspend fun editOrderRecord(orderRecord: OrderRecord) {
         orderRecordDao.addOrderRecord(mapper.mapOrderRecordToDB(orderRecord))
     }
 
@@ -29,7 +29,7 @@ class OrderRecordRepositoryImpl(application: Application):OrderRecordRepository 
             mapper.mapListDBToOrderRecord(it)
         }
 
-    override fun getOrderRecord(orderRecordId: Int): OrderRecord {
+    override suspend fun getOrderRecord(orderRecordId: Int): OrderRecord {
         val orderRecordDB = orderRecordDao.getOrderRecord(orderRecordId)
         return mapper.mapDBToOrderRecord(orderRecordDB)
     }
