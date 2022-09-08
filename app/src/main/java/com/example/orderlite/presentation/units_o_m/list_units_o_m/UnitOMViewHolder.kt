@@ -1,4 +1,4 @@
-package com.example.orderlite.presentation.listUnitsOM
+package com.example.orderlite.presentation.units_o_m.list_units_o_m
 
 import android.view.View
 import android.widget.TextView

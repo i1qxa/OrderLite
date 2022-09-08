@@ -6,16 +6,18 @@ import androidx.core.view.WindowCompat
 import androidx.navigation.ui.AppBarConfiguration
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.orderlite.R
 import com.example.orderlite.databinding.ActivityMainBinding
-import com.example.orderlite.presentation.listUnitsOM.ListUnitsOMFragment
+import com.example.orderlite.presentation.units_o_m.list_units_o_m.ListUnitsOMFragment
+import com.example.orderlite.presentation.product.ListGoodsFragment
+import com.google.android.material.appbar.MaterialToolbar
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+    private lateinit var materialToolBar: MaterialToolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -24,7 +26,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        launchNewFragment(ListUnitsOMFragment.newInstance())
+        materialToolBar = binding.mainToolBar
+        setSupportActionBar(materialToolBar)
 
     }
 

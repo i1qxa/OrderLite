@@ -1,4 +1,4 @@
-package com.example.orderlite.presentation
+package com.example.orderlite.presentation.order
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,21 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.orderlite.R
 
-class ListGoodsFragment : Fragment() {
-
+class ListOrderFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        return inflater.inflate(R.layout.fragment_list_goods, container, false)
+        return inflater.inflate(R.layout.fragment_list_order, container, false)
     }
 
     companion object {
         @JvmStatic
-        fun newInstance() = ListGoodsFragment()
+        fun newInstance() = ListOrderFragment()
     }
 }

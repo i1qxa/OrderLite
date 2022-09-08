@@ -13,5 +13,6 @@
     <string name="order_list">Order List</string>
     <string name="enter_full_name">Enter full Name</string>
     <string name="enter_short_name">Enter short name</string>
-    <string name="saveUnitOM">Save</string>
+    <string name="btn_save">Save</string>
+    <string name="btn_delete">Delete</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.orderlite.presentation
+package com.example.orderlite.presentation.order
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
