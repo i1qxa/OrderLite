@@ -7,6 +7,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import android.view.Menu
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import com.example.orderlite.R
 import com.example.orderlite.databinding.ActivityMainBinding
 import com.example.orderlite.presentation.units_o_m.list_units_o_m.ListUnitsOMFragment
@@ -15,7 +16,6 @@ import com.google.android.material.appbar.MaterialToolbar
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private lateinit var materialToolBar: MaterialToolbar
 
@@ -28,13 +28,13 @@ class MainActivity : AppCompatActivity() {
 
         materialToolBar = binding.mainToolBar
         setSupportActionBar(materialToolBar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
 
     }
 
 
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
