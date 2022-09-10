@@ -1,7 +1,7 @@
 package com.example.orderlite.domain.unitsOfMeasurement
 
 class EditUnitsOMUseCase(private val unitsOMRepository: UnitsOMRepository) {
-    fun editUnitsOM(unitsOM:UnitsOfMeasurement){
+    suspend fun editUnitsOM(unitsOM:UnitsOfMItem){
         unitsOMRepository.editUnitsOM(unitsOM)
     }
 }
