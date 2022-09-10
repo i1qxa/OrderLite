@@ -10,6 +10,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.orderlite.databinding.FragmentUnitOMBinding
+import com.example.orderlite.presentation.FragmentNameInstaller
 
 
 const val SCREEN_MODE = "extra_mode"
@@ -17,12 +18,14 @@ const val MODE_ADD = "mode_add"
 const val MODE_EDIT = "mode_edit"
 const val UNIT_O_M_ID = "unit_o_m_id"
 const val DEFAULT_ID: Int = 0
+const val FRAGMENT_NAME_UNIT_O_M = "Unit om"
 
 class UnitOMFragment : Fragment() {
     private var screenMode: String? = null
     private var unitOMId: Int = DEFAULT_ID
 
     private lateinit var viewModel: UnitOMViewModel
+    private lateinit var fragmentNameInstaller:FragmentNameInstaller
 
     private lateinit var _binding: FragmentUnitOMBinding
     private val binding
@@ -45,6 +48,8 @@ class UnitOMFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[UnitOMViewModel::class.java]
+        fragmentNameInstaller = FragmentNameInstaller
+        fragmentNameInstaller.setName(FRAGMENT_NAME_UNIT_O_M)
         launchRightMode()
         setTextChangeListeners()
         observeViewModel()
@@ -55,6 +60,7 @@ class UnitOMFragment : Fragment() {
     private fun observeViewModel() {
         viewModel.shouldCloseScreen.observe(viewLifecycleOwner) {
             parentFragmentManager.popBackStack()
+
         }
 
 

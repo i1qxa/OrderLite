@@ -2,4 +2,58 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph" />
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/listOrderFragment2">
+    <fragment
+        android:id="@+id/listOrderFragment2"
+        android:name="com.example.orderlite.presentation.order.ListOrderFragment"
+        android:label="fragment_list_order"
+        tools:layout="@layout/fragment_list_order" >
+        <action
+            android:id="@+id/action_listOrderFragment2_to_listUnitsOMFragment"
+            app:destination="@id/listUnitsOMFragment" />
+        <action
+            android:id="@+id/action_listOrderFragment2_to_listGoodsFragment"
+            app:destination="@id/listGoodsFragment" />
+        <action
+            android:id="@+id/action_listOrderFragment2_to_orderBodyFragment"
+            app:destination="@id/orderBodyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderBodyFragment"
+        android:name="com.example.orderlite.presentation.order.OrderBodyFragment"
+        android:label="OrderBodyFragment" />
+    <fragment
+        android:id="@+id/unitOMFragment"
+        android:name="com.example.orderlite.presentation.units_o_m.unit_o_m.UnitOMFragment"
+        android:label="UnitOMFragment" >
+        <action
+            android:id="@+id/action_unitOMFragment_to_listUnitsOMFragment"
+            app:destination="@id/listUnitsOMFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listGoodsFragment"
+        android:name="com.example.orderlite.presentation.product.ListGoodsFragment"
+        android:label="fragment_list_goods"
+        tools:layout="@layout/fragment_list_goods" />
+    <fragment
+        android:id="@+id/listUnitsOMFragment"
+        android:name="com.example.orderlite.presentation.units_o_m.list_units_o_m.ListUnitsOMFragment"
+        android:label="fragment_list_units_o_m"
+        tools:layout="@layout/fragment_list_units_o_m" >
+        <action
+            android:id="@+id/action_listUnitsOMFragment_to_unitOMFragment"
+            app:destination="@id/unitOMFragment" />
+    </fragment>
+    <fragment android:id="@+id/placeholder" >
+        <action
+            android:id="@+id/action_placeholder_to_listUnitsOMFragment"
+            app:destination="@id/listUnitsOMFragment" />
+        <action
+            android:id="@+id/action_placeholder_to_listOrderFragment2"
+            app:destination="@id/listOrderFragment2" />
+        <action
+            android:id="@+id/action_placeholder_to_listGoodsFragment"
+            app:destination="@id/listGoodsFragment" />
+    </fragment>
+</navigation>

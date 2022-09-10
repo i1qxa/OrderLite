@@ -11,13 +11,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.orderlite.R
 import com.example.orderlite.databinding.FragmentListUnitsOMBinding
+import com.example.orderlite.presentation.FragmentNameInstaller
 import com.example.orderlite.presentation.units_o_m.unit_o_m.MODE_ADD
 import com.example.orderlite.presentation.units_o_m.unit_o_m.UnitOMFragment
 
+const val FRAGMENT_NAME_LIST_UNITS_O_M = "List Units om"
 
 class ListUnitsOMFragment : Fragment() {
 
-
+    private lateinit var fragmentNameInstaller:FragmentNameInstaller
     private lateinit var viewModel: ListUnitsOMViewModel
     private lateinit var rvAdapter: UnitOMRVListAdapter
     private var _binding: FragmentListUnitsOMBinding? = null
@@ -42,7 +44,8 @@ class ListUnitsOMFragment : Fragment() {
 
         }
         setupFabOnClickListener()
-
+        fragmentNameInstaller=FragmentNameInstaller
+        fragmentNameInstaller.setName(FRAGMENT_NAME_LIST_UNITS_O_M)
     }
 
     private fun setupRecyclerView(context: Context) {
@@ -70,7 +73,7 @@ class ListUnitsOMFragment : Fragment() {
 
     private fun launchUnitOMFragment(fragment: UnitOMFragment) {
         parentFragmentManager.apply {
-            popBackStack()
+            //popBackStack()
             beginTransaction()
                 .replace(R.id.mainContainerView, fragment)
                 .addToBackStack(null)
