@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.example.orderlite.R
 import com.example.orderlite.presentation.FragmentNameInstaller
 
-const val FRAGMENT_NAME_GOODS_LIST = "Goods List"
+const val FRAGMENT_NAME_PRODUCTS_LIST = "Products List"
 
 class ListGoodsFragment : Fragment() {
 
@@ -28,7 +28,7 @@ class ListGoodsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fragmentNameInstaller = FragmentNameInstaller
-        fragmentNameInstaller.setName(FRAGMENT_NAME_GOODS_LIST)
+        fragmentNameInstaller.setName(FRAGMENT_NAME_PRODUCTS_LIST)
     }
 
     companion object {
