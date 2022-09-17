@@ -43,7 +43,6 @@ class ListUnitsOMFragment : Fragment() {
             rvAdapter.submitList(it)
 
         }
-        //setupFabOnClickListener()
         fragmentNameInstaller=FragmentNameInstaller
         fragmentNameInstaller.setName(FRAGMENT_NAME_LIST_UNITS_O_M)
     }
@@ -64,12 +63,6 @@ class ListUnitsOMFragment : Fragment() {
         }
 
     }
-
-//    private fun setupFabOnClickListener() {
-//        binding.fabCreateUnitOM.setOnClickListener {
-//            launchUnitOMFragment(UnitOMFragment.newInstanceAddItem(MODE_ADD))
-//        }
-//    }
 
     private fun launchUnitOMFragment(fragment: UnitOMFragment) {
         parentFragmentManager.apply {

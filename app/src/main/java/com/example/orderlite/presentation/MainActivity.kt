@@ -11,10 +11,11 @@ import com.example.orderlite.R
 import com.example.orderlite.databinding.ActivityMainBinding
 import com.example.orderlite.presentation.order.FRAGMENT_NAME_ORDER_BODY
 import com.example.orderlite.presentation.order.FRAGMENT_NAME_ORDER_LIST
-import com.example.orderlite.presentation.product.FRAGMENT_NAME_PRODUCTS_LIST
-import com.example.orderlite.presentation.product.FRAGMENT_NAME_PRODUCT_ITEM
+import com.example.orderlite.presentation.order.ListOrderFragment
 import com.example.orderlite.presentation.units_o_m.list_units_o_m.ListUnitsOMFragment
-import com.example.orderlite.presentation.product.ListGoodsFragment
+import com.example.orderlite.presentation.product.list_product_items.FRAGMENT_NAME_PRODUCTS_LIST
+import com.example.orderlite.presentation.product.list_product_items.ListProductsFragment
+import com.example.orderlite.presentation.product.product_item.FRAGMENT_NAME_PRODUCT_ITEM
 import com.example.orderlite.presentation.units_o_m.list_units_o_m.FRAGMENT_NAME_LIST_UNITS_O_M
 import com.example.orderlite.presentation.units_o_m.unit_o_m.FRAGMENT_NAME_UNIT_O_M
 import com.example.orderlite.presentation.units_o_m.unit_o_m.MODE_ADD
@@ -25,7 +26,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var materialToolBar: MaterialToolbar
-    private lateinit var fragmentNameInstaller:FragmentNameInstaller
 
     override fun onCreate(savedInstanceState: Bundle?) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -94,7 +94,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_goods -> {
-                launchNewFragment(ListGoodsFragment.newInstance())
+                launchNewFragment(ListProductsFragment.newInstance())
                 true
             }
             R.id.action_units_of_measurement ->{
@@ -102,7 +102,7 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.action_order_list ->{
-                launchNewFragment(ListGoodsFragment.newInstance())
+                launchNewFragment(ListOrderFragment.newInstance())
                 true
             }
             else -> super.onOptionsItemSelected(item)

@@ -16,7 +16,7 @@ import com.example.orderlite.presentation.FragmentNameInstaller
 const val SCREEN_MODE = "extra_mode"
 const val MODE_ADD = "mode_add"
 const val MODE_EDIT = "mode_edit"
-const val UNIT_O_M_ID = "unit_o_m_id"
+const val ITEM_ID = "item_id"
 const val DEFAULT_ID: Int = 0
 const val FRAGMENT_NAME_UNIT_O_M = "Unit om"
 
@@ -162,8 +162,8 @@ class UnitOMFragment : Fragment() {
         }
         screenMode = args.getString(SCREEN_MODE)
         if (screenMode == MODE_EDIT) {
-            if (!args.containsKey(UNIT_O_M_ID)) throw RuntimeException("UnitOMId is absent")
-            else unitOMId = args.getInt(UNIT_O_M_ID)
+            if (!args.containsKey(ITEM_ID)) throw RuntimeException("UnitOMId is absent")
+            else unitOMId = args.getInt(ITEM_ID)
         }
     }
 
@@ -173,7 +173,7 @@ class UnitOMFragment : Fragment() {
             UnitOMFragment().apply {
                 arguments = Bundle().apply {
                     putString(SCREEN_MODE, MODE_EDIT)
-                    putInt(UNIT_O_M_ID, unitOMId)
+                    putInt(ITEM_ID, unitOMId)
                 }
             }
 
