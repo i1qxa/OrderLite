@@ -1,7 +1,6 @@
 package com.example.orderlite.presentation.units_o_m.unit_o_m
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

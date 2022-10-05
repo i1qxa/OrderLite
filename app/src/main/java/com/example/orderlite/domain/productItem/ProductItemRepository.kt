@@ -7,7 +7,7 @@ interface ProductItemRepository {
 
     suspend fun deleteProductItem(productItemId:Int)
 
-    suspend fun editProductItemUseCase(productItem: ProductItem)
+    suspend fun editProductItem(productItem: ProductItem)
 
     fun getProductItemList():LiveData<List<ProductItem>>
 

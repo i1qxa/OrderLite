@@ -19,7 +19,7 @@ class ProductItemRepositoryImpl(application: Application):ProductItemRepository 
         productItemDao.deleteProductItem(productItemId)
     }
 
-    override suspend fun editProductItemUseCase(productItem: ProductItem) {
+    override suspend fun editProductItem(productItem: ProductItem) {
         productItemDao.addProductItem(mapper.mapProductItemToDb(productItem))
     }
 

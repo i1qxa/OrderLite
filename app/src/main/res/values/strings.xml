@@ -15,4 +15,5 @@
     <string name="enter_short_name">Enter short name</string>
     <string name="btn_save">Save</string>
     <string name="btn_delete">Delete</string>
+    <string name="product_name">Product Name</string>
 </resources>

@@ -157,7 +157,7 @@ class UnitOMFragment : Fragment() {
         if (!args.containsKey(SCREEN_MODE)) {
             throw RuntimeException("Param Screen Mode is absent")
         }
-        if (args.get(SCREEN_MODE) != MODE_ADD && args.get(SCREEN_MODE) != MODE_EDIT) {
+        if (args.getString(SCREEN_MODE) != MODE_ADD && args.getString(SCREEN_MODE) != MODE_EDIT) {
             throw RuntimeException("Unknown Screen Mode")
         }
         screenMode = args.getString(SCREEN_MODE)
