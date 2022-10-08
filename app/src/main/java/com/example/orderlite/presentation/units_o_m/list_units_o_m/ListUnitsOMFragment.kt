@@ -41,7 +41,6 @@ class ListUnitsOMFragment : Fragment() {
         setupRecyclerView(view.context)
         viewModel.listUnitsOM.observe(viewLifecycleOwner) {
             rvAdapter.submitList(it)
-
         }
         fragmentNameInstaller=FragmentNameInstaller
         fragmentNameInstaller.setName(FRAGMENT_NAME_LIST_UNITS_O_M)

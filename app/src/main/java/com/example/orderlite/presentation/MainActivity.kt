@@ -16,6 +16,7 @@ import com.example.orderlite.presentation.units_o_m.list_units_o_m.ListUnitsOMFr
 import com.example.orderlite.presentation.product.list_product_items.FRAGMENT_NAME_PRODUCTS_LIST
 import com.example.orderlite.presentation.product.list_product_items.ListProductsFragment
 import com.example.orderlite.presentation.product.product_item.FRAGMENT_NAME_PRODUCT_ITEM
+import com.example.orderlite.presentation.product.product_item.ProductItemFragment
 import com.example.orderlite.presentation.units_o_m.list_units_o_m.FRAGMENT_NAME_LIST_UNITS_O_M
 import com.example.orderlite.presentation.units_o_m.unit_o_m.FRAGMENT_NAME_UNIT_O_M
 import com.example.orderlite.presentation.units_o_m.unit_o_m.MODE_ADD
@@ -57,7 +58,7 @@ class MainActivity : AppCompatActivity() {
                 FRAGMENT_NAME_PRODUCTS_LIST -> {
                     setFabAddVisibility(true)
                     binding.fabAdd.setOnClickListener {
-                        TODO("Implement newInstance for FRAGMENT_NAME_PRODUCTS_LIST")
+                        launchNewFragment(ProductItemFragment.newInstance(MODE_ADD,-1))
                     }
                 }
                 FRAGMENT_NAME_PRODUCT_ITEM ->{

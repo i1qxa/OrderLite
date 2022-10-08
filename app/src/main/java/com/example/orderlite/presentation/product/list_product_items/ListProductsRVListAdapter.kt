@@ -15,7 +15,7 @@ class ListProductsRVListAdapter:androidx.recyclerview.widget.ListAdapter<
         val layoutInflater = LayoutInflater.from(parent.context)
         return ListProductsViewHolder(
             layoutInflater.inflate(
-                R.layout.unit_o_m_item,
+                R.layout.product_item,
                 parent,
                 false
             )

@@ -9,7 +9,6 @@ import com.example.orderlite.data.productItem.ProductItemRepositoryImpl
 import com.example.orderlite.data.unitsOM.UnitsOMRepositoryImpl
 import com.example.orderlite.domain.productItem.*
 import com.example.orderlite.domain.unitsOfMeasurement.GetListUnitsOMUseCase
-import com.example.orderlite.domain.unitsOfMeasurement.UnitsOfMItem
 import kotlinx.coroutines.launch
 
 class ProductItemViewModel(application: Application) : AndroidViewModel(application) {
@@ -21,9 +20,10 @@ class ProductItemViewModel(application: Application) : AndroidViewModel(applicat
     private val deleteProductItemUseCase = DeleteProductItemUseCase(repository)
     private val editProductItemUseCase = EditProductItemUseCase(repository)
 
-    private val getListUnitOMUseCase = GetListUnitsOMUseCase(repositoryUnitOM)
+    private val getListUnitsOMUseCase = GetListUnitsOMUseCase(repositoryUnitOM)
 
-    val listUnitsOM = getListUnitOMUseCase.getListUnitsOM()
+    val listUnitsOM = getListUnitsOMUseCase.getListUnitsOM()
+
 
     private var _productItem = MutableLiveData<ProductItem>()
     val productItem: LiveData<ProductItem>
