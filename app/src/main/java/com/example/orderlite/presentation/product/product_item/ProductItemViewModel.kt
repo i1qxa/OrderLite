@@ -40,7 +40,7 @@ class ProductItemViewModel(application: Application) : AndroidViewModel(applicat
     }
 
     fun addProductItem(name: String, unitOMId: Int) {
-        if (parseName(name)) {
+        if (parseName(name)&&parseId(unitOMId)) {
             val newProductItem = ProductItem(0, unitOMId, name)
             viewModelScope.launch {
                 addProductItemUseCase.addProductItem(newProductItem)
@@ -57,7 +57,7 @@ class ProductItemViewModel(application: Application) : AndroidViewModel(applicat
     }
 
     fun editProductItem(productId: Int, unitOMId: Int, productName: String) {
-        if (parseName(productName)) {
+        if (parseName(productName)&&parseId(productId)&&parseId(unitOMId)) {
             val newProductItem = ProductItem(productId, unitOMId, productName)
             viewModelScope.launch {
                 editProductItemUseCase.editProductItem(newProductItem)
@@ -68,6 +68,10 @@ class ProductItemViewModel(application: Application) : AndroidViewModel(applicat
 
     private fun parseName(name: String): Boolean {
         return name.isNotEmpty()
+    }
+
+    private fun parseId(uId:Int):Boolean {
+        return uId>0
     }
 
     private fun finishWork(){

@@ -111,7 +111,6 @@ class MainActivity : AppCompatActivity() {
     }
     private fun launchNewFragment(fragment: Fragment){
         supportFragmentManager.apply {
-            popBackStack()
             beginTransaction()
                 .replace(R.id.mainContainerView,fragment)
                 .addToBackStack(null)

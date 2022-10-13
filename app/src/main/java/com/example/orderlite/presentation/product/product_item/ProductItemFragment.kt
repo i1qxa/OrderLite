@@ -62,13 +62,14 @@ class ProductItemFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private fun finishWork() {
         viewModel.shouldCloseScreen.observe(viewLifecycleOwner) {
             parentFragmentManager.popBackStack()
+
         }
     }
 
     private fun launchRightMode() {
         if (screenMode == MODE_ADD) launchModeAdd()
         else launchModeEdit()
-    }
+        }
 
     private fun launchModeAdd() {
         binding.btnSaveProduct.setOnClickListener {
@@ -87,6 +88,11 @@ class ProductItemFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     private fun launchModeEdit() {
+        var a =5
+        viewModel.getProductItem(productId)
+        viewModel.productItem.observe(viewLifecycleOwner){
+            binding.etProductName.setText(it.name)
+        }
         binding.btnDeleteProduct.visibility = View.VISIBLE
         binding.btnDeleteProduct.setOnClickListener {
             viewModel.deleteProductItem(productId)
@@ -95,6 +101,7 @@ class ProductItemFragment : Fragment(), AdapterView.OnItemSelectedListener {
             viewModel.editProductItem(productId,
                 defaultUnitOMId,
                 binding.etProductName.text.toString())
+
         }
     }
 
@@ -105,7 +112,7 @@ class ProductItemFragment : Fragment(), AdapterView.OnItemSelectedListener {
         screenMode = args.getString(SCREEN_MODE)
         if (screenMode != MODE_EDIT && screenMode != MODE_ADD)
             throw RuntimeException("Unknown ScreenMode: $screenMode")
-        if (screenMode == MODE_ADD) {
+        if (screenMode == MODE_EDIT) {
             if (!args.containsKey(ITEM_ID))
                 throw RuntimeException("ProductItemId is Absent")
             productId = args.getInt(ITEM_ID)

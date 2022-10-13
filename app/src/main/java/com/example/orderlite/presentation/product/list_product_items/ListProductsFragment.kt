@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.orderlite.R
 import com.example.orderlite.databinding.FragmentListProductsBinding
 import com.example.orderlite.presentation.FragmentNameInstaller
+import com.example.orderlite.presentation.product.product_item.ProductItemFragment
+import com.example.orderlite.presentation.units_o_m.unit_o_m.MODE_EDIT
 
 const val FRAGMENT_NAME_PRODUCTS_LIST = "Products List"
 
@@ -50,6 +52,18 @@ class ListProductsFragment : Fragment() {
                 RecyclerView.VERTICAL,
                 false
                 )
+        }
+        rvAdapter.productItemClickListener = {
+            launchProductItemFragment(ProductItemFragment.newInstance(MODE_EDIT,it.id))
+        }
+    }
+
+    private fun launchProductItemFragment(fragment:ProductItemFragment){
+        parentFragmentManager.apply {
+            beginTransaction()
+                .replace(R.id.mainContainerView,fragment)
+                .addToBackStack(null)
+                .commit()
         }
     }
 
