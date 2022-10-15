@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 interface OrderDbModelDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addOrder(order: OrderDbModel)
-    @Query("SELECT * FROM `order` WHERE order_date > :dateStart and order_date < :dateEnd")
-    fun getOrderList(dateStart:String,dateEnd:String):LiveData<List<OrderDbModel>>
+    @Query("SELECT * FROM `order`")
+    fun getOrderList():LiveData<List<OrderDbModel>>
 
 }

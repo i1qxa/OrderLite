@@ -37,7 +37,7 @@ class ProductItemFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
-        TODO("Not yet implemented")
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

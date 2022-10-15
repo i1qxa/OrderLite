@@ -4,6 +4,9 @@ import androidx.lifecycle.LiveData
 import kotlinx.coroutines.flow.Flow
 
 interface OrderRepository {
-    fun getOrderList(dateStart:String, dateEnd:String):LiveData<List<Order>>
+
+    fun getOrderList():LiveData<List<Order>>
+
     suspend fun addOrder(order: Order)
+
 }

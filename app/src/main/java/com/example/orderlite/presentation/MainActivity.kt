@@ -9,9 +9,11 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.orderlite.R
 import com.example.orderlite.databinding.ActivityMainBinding
-import com.example.orderlite.presentation.order.FRAGMENT_NAME_ORDER_BODY
 import com.example.orderlite.presentation.order.FRAGMENT_NAME_ORDER_LIST
 import com.example.orderlite.presentation.order.ListOrderFragment
+import com.example.orderlite.presentation.order_record.FRAGMENT_NAME_ORDER_BODY
+import com.example.orderlite.presentation.order_record.ORDER_ID
+import com.example.orderlite.presentation.order_record.OrderBodyFragment
 import com.example.orderlite.presentation.units_o_m.list_units_o_m.ListUnitsOMFragment
 import com.example.orderlite.presentation.product.list_product_items.FRAGMENT_NAME_PRODUCTS_LIST
 import com.example.orderlite.presentation.product.list_product_items.ListProductsFragment
@@ -67,7 +69,7 @@ class MainActivity : AppCompatActivity() {
                 FRAGMENT_NAME_ORDER_LIST -> {
                     setFabAddVisibility(true)
                     binding.fabAdd.setOnClickListener {
-                        TODO("Implement newInstance for FRAGMENT_NAME_ORDER_LIST")
+                        launchNewFragment(OrderBodyFragment.newInstance(0))
                     }
                 }
                 FRAGMENT_NAME_ORDER_BODY -> {

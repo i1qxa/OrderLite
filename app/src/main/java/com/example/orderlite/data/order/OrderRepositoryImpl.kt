@@ -13,8 +13,8 @@ class OrderRepositoryImpl(application: Application):OrderRepository {
     private val orderDBModelDao = AppDatabase.getInstance(application).orderDbModelDao()
     private val mapper = OrderMapper()
 
-    override fun getOrderList(dateStart: String, dateEnd: String): LiveData<List<Order>> =
-        Transformations.map(orderDBModelDao.getOrderList(dateStart,dateEnd)){
+    override fun getOrderList(): LiveData<List<Order>> =
+        Transformations.map(orderDBModelDao.getOrderList()){
             mapper.mapListOrderDBModelTOListOrder(it)
         }
 
