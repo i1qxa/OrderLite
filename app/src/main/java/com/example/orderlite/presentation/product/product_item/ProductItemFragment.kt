@@ -1,11 +1,15 @@
 package com.example.orderlite.presentation.product.product_item
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import com.example.orderlite.R
 import com.example.orderlite.databinding.FragmentProductItemBinding
 import com.example.orderlite.domain.unitsOfMeasurement.UnitsOfMItem
 import com.example.orderlite.presentation.FragmentNameInstaller
@@ -56,14 +60,46 @@ class ProductItemFragment : Fragment(), AdapterView.OnItemSelectedListener {
         fragmentNameInstaller.setName(FRAGMENT_NAME_PRODUCT_ITEM)
         launchRightMode()
         setDefaultUnitOMClickListener()
+        setTextChangeListener()
         finishWork()
+        observeErrorInput()
+    }
+
+    private fun observeErrorInput() {
+        viewModel.errorInputName.observe(viewLifecycleOwner){
+            if (it) binding.tilProductName.error = R.string.error_input_name.toString()
+            else binding.tilProductName.error = null
+        }
     }
 
     private fun finishWork() {
         viewModel.shouldCloseScreen.observe(viewLifecycleOwner) {
             parentFragmentManager.popBackStack()
-
         }
+    }
+
+    private fun setTextChangeListener(){
+        binding.etProductName.addTextChangedListener(
+            object : TextWatcher{
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int,
+                ) {
+
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    viewModel.resetErrorInput()
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+
+                }
+            }
+            )
+
     }
 
     private fun launchRightMode() {
@@ -88,7 +124,6 @@ class ProductItemFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     private fun launchModeEdit() {
-        var a =5
         viewModel.getProductItem(productId)
         viewModel.productItem.observe(viewLifecycleOwner){
             binding.etProductName.setText(it.name)
@@ -101,7 +136,6 @@ class ProductItemFragment : Fragment(), AdapterView.OnItemSelectedListener {
             viewModel.editProductItem(productId,
                 defaultUnitOMId,
                 binding.etProductName.text.toString())
-
         }
     }
 

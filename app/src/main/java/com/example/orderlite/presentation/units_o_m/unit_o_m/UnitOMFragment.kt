@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.orderlite.R
 import com.example.orderlite.databinding.FragmentUnitOMBinding
 import com.example.orderlite.presentation.FragmentNameInstaller
 
@@ -60,19 +61,16 @@ class UnitOMFragment : Fragment() {
     private fun observeViewModel() {
         viewModel.shouldCloseScreen.observe(viewLifecycleOwner) {
             parentFragmentManager.popBackStack()
-
         }
-
-
     }
 
     private fun observeErrorInput() {
         viewModel.errorInputName.observe(viewLifecycleOwner) {
-            if (it) binding.tilName.error = "Name is empty!"
+            if (it) binding.tilName.error = R.string.error_input_name.toString()
             else binding.tilName.error = null
         }
         viewModel.errorInputShortName.observe(viewLifecycleOwner) {
-            if (it) binding.tilShortName.error = "Short name is empty!"
+            if (it) binding.tilShortName.error = R.string.error_input_short_name.toString()
             else binding.tilShortName.error = null
         }
     }
@@ -100,7 +98,7 @@ class UnitOMFragment : Fragment() {
     }
 
     private fun setTextChangeListeners() {
-        binding.etName.addTextChangedListener {
+        binding.etName.addTextChangedListener (
             object : TextWatcher {
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
@@ -114,8 +112,8 @@ class UnitOMFragment : Fragment() {
 
                 }
             }
-        }
-        binding.etShortName.addTextChangedListener {
+            )
+        binding.etShortName.addTextChangedListener (
             object : TextWatcher {
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
@@ -129,7 +127,7 @@ class UnitOMFragment : Fragment() {
 
                 }
             }
-        }
+            )
     }
 
     private fun setEditClickListeners() {

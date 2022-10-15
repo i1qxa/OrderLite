@@ -6,6 +6,8 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="error_input_name">Name is empty!</string>
+    <string name="error_input_short_name">Short name is empty!</string>
 
 
     <string name="hello_blank_fragment">Hello blank fragment</string>

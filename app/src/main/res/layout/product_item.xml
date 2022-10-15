@@ -17,11 +17,6 @@
             android:layout_weight="2"
             android:text="TextView" />
 
-        <TextView
-            android:id="@+id/tvDefaultUnitOM"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="TextView" />
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>

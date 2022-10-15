@@ -33,6 +33,10 @@ class ProductItemViewModel(application: Application) : AndroidViewModel(applicat
     val shouldCloseScreen:LiveData<Unit>
     get() = _shouldCloseScreen
 
+    private var _errorInputName = MutableLiveData<Boolean>()
+    val errorInputName:LiveData<Boolean>
+    get() = _errorInputName
+
     fun getProductItem(id: Int) {
         viewModelScope.launch {
             _productItem.value = getProductItemUseCase.getProductItem(id)
@@ -40,8 +44,9 @@ class ProductItemViewModel(application: Application) : AndroidViewModel(applicat
     }
 
     fun addProductItem(name: String, unitOMId: Int) {
-        if (parseName(name)&&parseId(unitOMId)) {
-            val newProductItem = ProductItem(0, unitOMId, name)
+        val productName = parseName(name)
+        if (validateInput(productName)) {
+            val newProductItem = ProductItem(0, unitOMId, productName)
             viewModelScope.launch {
                 addProductItemUseCase.addProductItem(newProductItem)
                 finishWork()
@@ -57,8 +62,9 @@ class ProductItemViewModel(application: Application) : AndroidViewModel(applicat
     }
 
     fun editProductItem(productId: Int, unitOMId: Int, productName: String) {
-        if (parseName(productName)&&parseId(productId)&&parseId(unitOMId)) {
-            val newProductItem = ProductItem(productId, unitOMId, productName)
+        if (validateInput(productName)) {
+            val prodName = parseName(productName)
+            val newProductItem = ProductItem(productId, unitOMId, prodName)
             viewModelScope.launch {
                 editProductItemUseCase.editProductItem(newProductItem)
                 finishWork()
@@ -66,13 +72,24 @@ class ProductItemViewModel(application: Application) : AndroidViewModel(applicat
         }
     }
 
-    private fun parseName(name: String): Boolean {
-        return name.isNotEmpty()
+    fun resetErrorInput(){
+        _errorInputName.value = false
     }
 
-    private fun parseId(uId:Int):Boolean {
-        return uId>0
+    private fun parseName(name: String): String {
+        return name.trim()
     }
+
+    private fun validateInput(name: String):Boolean{
+        val productName = parseName(name)
+        return if (productName.isNotEmpty()){
+            true
+        } else{
+            _errorInputName.value = true
+            false
+        }
+    }
+
 
     private fun finishWork(){
         _shouldCloseScreen.value = Unit
