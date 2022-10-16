@@ -44,6 +44,7 @@ class ListUnitsOMFragment : Fragment() {
         }
         fragmentNameInstaller=FragmentNameInstaller
         fragmentNameInstaller.setName(FRAGMENT_NAME_LIST_UNITS_O_M)
+        setupOnClickListener()
     }
 
     private fun setupRecyclerView(context: Context) {
@@ -71,6 +72,12 @@ class ListUnitsOMFragment : Fragment() {
                 .commit()
         }
 
+    }
+
+    private fun setupOnClickListener(){
+        binding.fabAddUnitOM.setOnClickListener {
+            launchUnitOMFragment(UnitOMFragment.newInstanceAddItem(MODE_ADD))
+        }
     }
 
     override fun onDestroyView() {

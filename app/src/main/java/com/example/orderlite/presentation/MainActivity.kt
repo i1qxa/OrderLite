@@ -47,47 +47,10 @@ class MainActivity : AppCompatActivity() {
     private fun observeFragmentName(){
         FragmentNameInstaller.currentFragmentName.observe(this){
             binding.fragmentName.text = it
-            when(it){
-                FRAGMENT_NAME_LIST_UNITS_O_M ->{
-                    setFabAddVisibility(true)
-                    binding.fabAdd.setOnClickListener{
-                        launchNewFragment(UnitOMFragment.newInstanceAddItem(MODE_ADD))
-                    }
-                }
-                FRAGMENT_NAME_UNIT_O_M -> {
-                    setFabAddVisibility(false)
-                }
-                FRAGMENT_NAME_PRODUCTS_LIST -> {
-                    setFabAddVisibility(true)
-                    binding.fabAdd.setOnClickListener {
-                        launchNewFragment(ProductItemFragment.newInstance(MODE_ADD,-1))
-                    }
-                }
-                FRAGMENT_NAME_PRODUCT_ITEM ->{
-                    setFabAddVisibility(false)
-                }
-                FRAGMENT_NAME_ORDER_LIST -> {
-                    setFabAddVisibility(true)
-                    binding.fabAdd.setOnClickListener {
-                        launchNewFragment(OrderBodyFragment.newInstance(0))
-                    }
-                }
-                FRAGMENT_NAME_ORDER_BODY -> {
-                    setFabAddVisibility(false)
-                }
-                else -> {
-                    throw RuntimeException("Incorrect Fragment Name: $it")
-                }
-            }
         }
     }
 
-    private fun setFabAddVisibility(visibility:Boolean){
-        when(visibility){
-            true -> binding.fabAdd.visibility = View.VISIBLE
-            false -> binding.fabAdd.visibility = View.GONE
-        }
-    }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)

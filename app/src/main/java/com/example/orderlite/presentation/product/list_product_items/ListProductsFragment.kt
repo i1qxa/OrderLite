@@ -12,6 +12,7 @@ import com.example.orderlite.R
 import com.example.orderlite.databinding.FragmentListProductsBinding
 import com.example.orderlite.presentation.FragmentNameInstaller
 import com.example.orderlite.presentation.product.product_item.ProductItemFragment
+import com.example.orderlite.presentation.units_o_m.unit_o_m.MODE_ADD
 import com.example.orderlite.presentation.units_o_m.unit_o_m.MODE_EDIT
 
 const val FRAGMENT_NAME_PRODUCTS_LIST = "Products List"
@@ -41,6 +42,7 @@ class ListProductsFragment : Fragment() {
         viewModel.productItemList.observe(viewLifecycleOwner){
             rvAdapter.submitList(it)
         }
+        setupOnClickListener()
     }
 
     private fun setupRecyclerView(){
@@ -55,6 +57,12 @@ class ListProductsFragment : Fragment() {
         }
         rvAdapter.productItemClickListener = {
             launchProductItemFragment(ProductItemFragment.newInstance(MODE_EDIT,it.id))
+        }
+    }
+
+    private fun setupOnClickListener(){
+        binding.fabAddProductItem.setOnClickListener {
+            launchProductItemFragment(ProductItemFragment.newInstance(MODE_ADD,0))
         }
     }
 

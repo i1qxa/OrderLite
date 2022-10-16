@@ -5,15 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.lifecycle.ViewModelProvider
 import com.example.orderlite.R
+import com.example.orderlite.databinding.FragmentListOrderBinding
 import com.example.orderlite.presentation.FragmentNameInstaller
 import com.example.orderlite.presentation.order_record.OrderBodyFragment
+import kotlinx.coroutines.flow.combine
 
 const val FRAGMENT_NAME_ORDER_LIST = "OrderList"
 
 class ListOrderFragment : Fragment() {
 
+    private lateinit var binding:FragmentListOrderBinding
     private lateinit var fragmentNameInstaller:FragmentNameInstaller
     private lateinit var viewModel: ListOrderViewModel
     private var orderId:Int? = null
@@ -25,8 +29,9 @@ class ListOrderFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
-        return inflater.inflate(R.layout.fragment_list_order, container, false)
+    ): View {
+        binding = FragmentListOrderBinding.inflate(inflater,container,false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,8 +39,15 @@ class ListOrderFragment : Fragment() {
         fragmentNameInstaller = FragmentNameInstaller
         fragmentNameInstaller.setName(FRAGMENT_NAME_ORDER_LIST)
         viewModel = ViewModelProvider(this)[ListOrderViewModel::class.java]
+        setupOnClickListener()
+
     }
 
+    private fun setupOnClickListener(){
+        binding.fabAddOrder.setOnClickListener {
+            viewModel.addOrder()
+        }
+    }
 
     private fun launchNewFragment(fragment: OrderBodyFragment){
         parentFragmentManager.apply {

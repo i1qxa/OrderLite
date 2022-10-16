@@ -15,7 +15,7 @@ class ListOrderViewModel(application: Application) : AndroidViewModel(applicatio
     private val getListOrderUseCase = GetOrderListUseCase(repository)
     private val addOrderUseCase = AddOrderUseCase(repository)
     val orderList = getListOrderUseCase.getOrderList()
-    suspend fun addOrder() {
+    fun addOrder() {
         val newOrder = Order(0, Calendar.getInstance().toString())
         viewModelScope.launch {
             addOrderUseCase.addOrder(newOrder)
