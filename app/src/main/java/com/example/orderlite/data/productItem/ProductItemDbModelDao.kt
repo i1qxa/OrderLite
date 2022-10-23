@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 
 @Dao
 interface ProductItemDbModelDao {
@@ -16,4 +17,7 @@ interface ProductItemDbModelDao {
     fun getProductItemList():LiveData<List<ProductItemDbModel>>
     @Query("SELECT * FROM product_item WHERE product_item_id = :productItemId")
     suspend fun getProductItem(productItemId:Int): ProductItemDbModel
+    @Transaction
+    @Query("SELECT * FROM PRODUCT_ITEM where product_item_id = :productItemId")
+    suspend fun getProductItemWithUnitOMItem(productItemId:Int):ProductItemWithUnitOMItemDBModel
 }

@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import androidx.core.widget.addTextChangedListener
+import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import com.example.orderlite.R
 import com.example.orderlite.databinding.FragmentProductItemBinding
@@ -25,6 +25,8 @@ class ProductItemFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private var productId: Int = 0
     private var defaultUnitOM: UnitsOfMItem = UnitsOfMItem(-1, "0", "0")
     private var defaultUnitOMId: Int = -1
+    private lateinit var spinnerAdapter: MySpinnerAdapter
+    private lateinit var spinner: Spinner
     private lateinit var viewModel: ProductItemViewModel
     private lateinit var fragmentNameInstaller: FragmentNameInstaller
     private lateinit var _binding: FragmentProductItemBinding
@@ -58,8 +60,8 @@ class ProductItemFragment : Fragment(), AdapterView.OnItemSelectedListener {
         viewModel = androidx.lifecycle.ViewModelProvider(this)[ProductItemViewModel::class.java]
         fragmentNameInstaller = FragmentNameInstaller
         fragmentNameInstaller.setName(FRAGMENT_NAME_PRODUCT_ITEM)
+        setupSpinner()
         launchRightMode()
-        setDefaultUnitOMClickListener()
         setTextChangeListener()
         finishWork()
         observeErrorInput()
@@ -114,19 +116,25 @@ class ProductItemFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     }
 
-    private fun setDefaultUnitOMClickListener() {
+    private fun setupSpinner() {
         viewModel.listUnitsOM.observe(viewLifecycleOwner) {
-            val adapter = MySpinnerAdapter(this.requireContext(), it)
-            val spinner = binding.spinnerUnitOM
-            spinner.adapter = adapter
+            spinnerAdapter = MySpinnerAdapter(this.requireContext(), it)
+            spinner = binding.spinnerUnitOM
+            spinner.adapter = spinnerAdapter
             spinner.onItemSelectedListener = this
+            viewModel.productItem.observe(viewLifecycleOwner){
+                val defaultSpinnerPosition = findUnitOMPositionInSpinner(spinner.count,it.unitOMItem)
+                spinner.setSelection(defaultSpinnerPosition)
+            }
+
         }
     }
 
     private fun launchModeEdit() {
         viewModel.getProductItem(productId)
         viewModel.productItem.observe(viewLifecycleOwner){
-            binding.etProductName.setText(it.name)
+            binding.etProductName.setText(it.productItem.name)
+
         }
         binding.btnDeleteProduct.visibility = View.VISIBLE
         binding.btnDeleteProduct.setOnClickListener {
@@ -137,6 +145,14 @@ class ProductItemFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 defaultUnitOMId,
                 binding.etProductName.text.toString())
         }
+    }
+
+    private fun findUnitOMPositionInSpinner(spinnerSize:Int, defaultUnitOM:UnitsOfMItem):Int{
+        var ans = 0
+        for (i in 0 until spinnerSize){
+            if (spinner.adapter.getItem(i)==defaultUnitOM) ans = i
+        }
+        return ans
     }
 
     private fun parseParams() {

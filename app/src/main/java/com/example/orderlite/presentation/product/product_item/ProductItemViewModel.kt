@@ -15,18 +15,18 @@ class ProductItemViewModel(application: Application) : AndroidViewModel(applicat
     private val repository = ProductItemRepositoryImpl(application)
     private val repositoryUnitOM = UnitsOMRepositoryImpl(application)
 
-    private val getProductItemUseCase = GetProductItemUseCase(repository)
     private val addProductItemUseCase = AddProductItemUseCase(repository)
     private val deleteProductItemUseCase = DeleteProductItemUseCase(repository)
     private val editProductItemUseCase = EditProductItemUseCase(repository)
+    private val getProductItemWithUnitOMItemUseCase = GetProductItemWithUnitOMItemUseCase(repository)
 
     private val getListUnitsOMUseCase = GetListUnitsOMUseCase(repositoryUnitOM)
 
     val listUnitsOM = getListUnitsOMUseCase.getListUnitsOM()
 
 
-    private var _productItem = MutableLiveData<ProductItem>()
-    val productItem: LiveData<ProductItem>
+private var _productItem = MutableLiveData<ProductItemWithUnitOMItem>()
+    val productItem: LiveData<ProductItemWithUnitOMItem>
         get() = _productItem
 
     private var _shouldCloseScreen = MutableLiveData<Unit>()
@@ -39,7 +39,7 @@ class ProductItemViewModel(application: Application) : AndroidViewModel(applicat
 
     fun getProductItem(id: Int) {
         viewModelScope.launch {
-            _productItem.value = getProductItemUseCase.getProductItem(id)
+            _productItem.value = getProductItemWithUnitOMItemUseCase.getProductItemWithUnitOM(id)
         }
     }
 
