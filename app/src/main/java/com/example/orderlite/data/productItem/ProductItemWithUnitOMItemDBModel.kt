@@ -10,7 +10,6 @@ data class ProductItemWithUnitOMItemDBModel(
     @Relation(
         parentColumn = "default_unit_id",
         entityColumn = "unit_id"
-
     )
     val unitOMItem:UnitsOMDbModel
 )

@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.example.orderlite.data.AppDatabase
 import com.example.orderlite.domain.orderRecord.OrderRecord
+import com.example.orderlite.domain.orderRecord.OrderRecordWithProductItemAndUnitOMItem
 import com.example.orderlite.domain.orderRecord.OrderRecordRepository
 
 class OrderRecordRepositoryImpl(application: Application):OrderRecordRepository {
@@ -33,4 +34,9 @@ class OrderRecordRepositoryImpl(application: Application):OrderRecordRepository 
         val orderRecordDB = orderRecordDao.getOrderRecord(orderRecordId)
         return mapper.mapDBToOrderRecord(orderRecordDB)
     }
+
+    override fun getOrderRecordJoinList(orderId: Int): LiveData<List<OrderRecordWithProductItemAndUnitOMItem>> =
+        Transformations.map(orderRecordDao.getOrderRecordListWithProductItemAndUnitOMItemDB(orderId)){
+            mapper.mapListDBToListOrderRecordWithProductItemAndUnitOMItem(it)
+        }
 }

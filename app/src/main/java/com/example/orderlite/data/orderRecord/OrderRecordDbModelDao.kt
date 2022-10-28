@@ -14,4 +14,7 @@ interface OrderRecordDbModelDao {
     fun getOrderRecordList(orderId:Int):LiveData<List<OrderRecordDbModel>>
     @Query("SELECT * FROM order_record WHERE order_id = :orderRecordId")
     suspend fun getOrderRecord(orderRecordId:Int): OrderRecordDbModel
+    @Query("SELECT * FROM order_record WHERE order_id = :orderId")
+    fun getOrderRecordListWithProductItemAndUnitOMItemDB(orderId: Int):
+            LiveData<List<OrderRecordWithProductItemAndUnitOMItemDBModel>>
 }

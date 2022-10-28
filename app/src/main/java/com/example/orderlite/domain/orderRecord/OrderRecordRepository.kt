@@ -12,4 +12,6 @@ interface OrderRecordRepository {
     fun getOrderRecordList(orderId:Int):LiveData<List<OrderRecord>>
 
     suspend fun getOrderRecord(orderRecordId:Int):OrderRecord
+
+    fun getOrderRecordJoinList(orderId:Int):LiveData<List<OrderRecordWithProductItemAndUnitOMItem>>
 }
