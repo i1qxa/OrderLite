@@ -18,4 +18,8 @@
     <string name="btn_save">Save</string>
     <string name="btn_delete">Delete</string>
     <string name="product_name">Product Name</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="et_name_price">Price</string>
+    <string name="enter_price_of_product">Enter price of product</string>
+    <string name="product_item_name">Product item name</string>
 </resources>
