@@ -26,11 +26,16 @@ class ListProductsFragment : Fragment() {
     private lateinit var viewModel: ListProductsViewModel
     private lateinit var rvAdapter: ListProductsRVListAdapter
     private lateinit var screenMode: String
-    private var orderId:Int? = null
+    private var orderId: Int? = null
     private var _binding: FragmentListProductsBinding? = null
     private val binding: FragmentListProductsBinding
         get() = _binding ?: throw RuntimeException("FragmentListProductsBinding == null")
 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        parseParams()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,7 +53,7 @@ class ListProductsFragment : Fragment() {
         viewModel.productItemList.observe(viewLifecycleOwner) {
             rvAdapter.submitList(it)
         }
-        setupOnClickListener()
+        setupAddBtnOnClickListener()
     }
 
     private fun setupRecyclerView() {
@@ -62,11 +67,16 @@ class ListProductsFragment : Fragment() {
             )
         }
         rvAdapter.productItemClickListener = {
-            launchProductItemFragment(ProductItemFragment.newInstance(MODE_EDIT, it.id))
+            if (screenMode == MODE_LIST_VIEW) {
+                launchProductItemFragment(ProductItemFragment.newInstance(MODE_EDIT, it.id))
+            }
+            else{
+                TODO("Create behawior for mode choose")
+            }
         }
     }
 
-    private fun setupOnClickListener() {
+    private fun setupAddBtnOnClickListener() {
         binding.fabAddProductItem.setOnClickListener {
             launchProductItemFragment(ProductItemFragment.newInstance(MODE_ADD, 0))
         }
@@ -81,13 +91,30 @@ class ListProductsFragment : Fragment() {
         }
     }
 
-    private fun parseIntent(){
+    private fun parseParams() {
         val args = requireArguments()
-        if(!args.containsKey(SCREEN_MODE)) throw RuntimeException("Param Screen Mode is absent")
-        screenMode = args.getString(SCREEN_MODE)
+        if (!args.containsKey(SCREEN_MODE)) throw RuntimeException("Param Screen Mode is absent")
+        screenMode = args.getString(SCREEN_MODE)!!
         if (screenMode != MODE_LIST_VIEW && screenMode != MODE_MULTI_CHOOSE)
             throw RuntimeException("Unknown Screen Mode: $screenMode")
-        if (screenMode == MODE_MULTI_CHOOSE)
+        if (screenMode == MODE_MULTI_CHOOSE) {
+            if (!args.containsKey(ORDER_ID)) throw RuntimeException("OrderId is absent")
+            else orderId = args.getInt(ORDER_ID)
+        }
+    }
+
+    private fun launchRightMode() {
+        if (screenMode == MODE_LIST_VIEW) launchListViewMode()
+        else if (screenMode == MODE_MULTI_CHOOSE) launchModeMultiChoose()
+
+    }
+
+    private fun launchListViewMode() {
+        TODO("Not yet implemented")
+    }
+
+    private fun launchModeMultiChoose() {
+        TODO("Not yet implemented")
     }
 
     companion object {
