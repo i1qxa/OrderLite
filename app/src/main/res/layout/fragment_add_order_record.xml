@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.product.DialogChooseProductFragment">
+    tools:context=".presentation.order_record.order_record_item.AddOrderRecordFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -36,20 +36,9 @@
                 android:id="@+id/etAmount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/enter_price_of_product"
+                android:hint="@string/enter_amount"
                 android:inputType="none|numberDecimal" />
         </com.google.android.material.textfield.TextInputLayout>
-
-        <EditText
-            android:id="@+id/etPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="none|numberDecimal"
-            android:text="@string/et_name_price"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilAmount" />
 
         <Button
             android:id="@+id/btnSave"
@@ -57,7 +46,7 @@
             android:layout_height="wrap_content"
             android:text="@string/btn_save"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etPrice" />
+            app:layout_constraintTop_toBottomOf="@+id/tilAmount" />
 
         <Button
             android:id="@+id/btnCancel"
@@ -65,7 +54,7 @@
             android:layout_height="wrap_content"
             android:text="@string/btn_cancel"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etPrice" />
+            app:layout_constraintTop_toBottomOf="@+id/tilAmount" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

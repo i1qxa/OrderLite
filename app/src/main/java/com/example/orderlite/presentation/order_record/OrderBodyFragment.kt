@@ -9,9 +9,10 @@ import com.example.orderlite.R
 import com.example.orderlite.databinding.FragmentListOrderBinding
 import com.example.orderlite.presentation.FragmentNameInstaller
 import com.example.orderlite.presentation.order.FRAGMENT_NAME_ORDER_LIST
+import com.example.orderlite.presentation.product.list_product_items.ORDER_ID
 
 const val FRAGMENT_NAME_ORDER_BODY = "Order"
-const val ORDER_ID = "OrderId"
+
 
 class OrderBodyFragment : Fragment() {
 

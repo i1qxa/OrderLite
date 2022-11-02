@@ -122,8 +122,9 @@ class ProductItemFragment : Fragment(), AdapterView.OnItemSelectedListener {
             spinner = binding.spinnerUnitOM
             spinner.adapter = spinnerAdapter
             spinner.onItemSelectedListener = this
-            viewModel.productItem.observe(viewLifecycleOwner){
-                val defaultSpinnerPosition = findUnitOMPositionInSpinner(spinner.count,it.unitOMItem)
+            viewModel.productItem.observe(viewLifecycleOwner){ productWithUnitOM ->
+                //val defaultSpinnerPosition = findUnitOMPositionInSpinner(spinner.count,productWithUnitOM.unitOMItem)
+                val defaultSpinnerPosition = spinnerAdapter.getPosition(productWithUnitOM.unitOMItem)
                 spinner.setSelection(defaultSpinnerPosition)
             }
 
@@ -147,13 +148,13 @@ class ProductItemFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
     }
 
-    private fun findUnitOMPositionInSpinner(spinnerSize:Int, defaultUnitOM:UnitsOfMItem):Int{
-        var ans = 0
-        for (i in 0 until spinnerSize){
-            if (spinner.adapter.getItem(i)==defaultUnitOM) ans = i
-        }
-        return ans
-    }
+//    private fun findUnitOMPositionInSpinner(spinnerSize:Int, defaultUnitOM:UnitsOfMItem):Int{
+//        var ans = 0
+//        for (i in 0 until spinnerSize){
+//            if (spinner.adapter.getItem(i)==defaultUnitOM) ans = i
+//        }
+//        return ans
+//    }
 
     private fun parseParams() {
         val args = requireArguments()
