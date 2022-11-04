@@ -91,6 +91,8 @@ class ListProductsFragment : Fragment() {
         }
     }
 
+
+
     private fun parseParams() {
         val args = requireArguments()
         if (!args.containsKey(SCREEN_MODE)) throw RuntimeException("Param Screen Mode is absent")
