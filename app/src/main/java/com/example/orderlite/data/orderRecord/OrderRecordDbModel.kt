@@ -28,6 +28,6 @@ data class OrderRecordDbModel(
     val unitId:Int,
     @ColumnInfo(name = "price")
     val price:Double,
-    @ColumnInfo(name = "amount")
+    @ColumnInfo(name = "orderRecordAmount")
     val amount:Double
 )

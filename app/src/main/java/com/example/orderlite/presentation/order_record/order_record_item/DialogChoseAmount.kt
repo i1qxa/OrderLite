@@ -73,7 +73,7 @@ class DialogChoseAmount : DialogFragment() {
         @JvmStatic
         private val TAG = DialogChoseAmount::class.java.simpleName
         @JvmStatic
-        private val KEY_AMOUNT_RESPONSE = "KEY_AMOUNT_RESPONSE"
+        val KEY_AMOUNT_RESPONSE = "KEY_AMOUNT_RESPONSE"
         @JvmStatic
         private val ARG_PRODUCT_NAME = "ARG_PRODUCT_NAME"
         @JvmStatic
@@ -82,7 +82,7 @@ class DialogChoseAmount : DialogFragment() {
         @JvmStatic
         val REQUEST_KEY = "$TAG:defaultRequestKey"
 
-        fun show(manager: FragmentManager, productName: String, unitOMName: String) {
+        fun showAmountDialog(manager: FragmentManager, productName: String, unitOMName: String) {
             val dialogFragment = DialogChoseAmount()
             dialogFragment.arguments = bundleOf(
                 ARG_PRODUCT_NAME to productName,

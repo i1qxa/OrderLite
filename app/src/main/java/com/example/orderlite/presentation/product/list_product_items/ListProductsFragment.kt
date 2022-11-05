@@ -1,16 +1,17 @@
 package com.example.orderlite.presentation.product.list_product_items
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.orderlite.R
 import com.example.orderlite.databinding.FragmentListProductsBinding
 import com.example.orderlite.presentation.FragmentNameInstaller
+import com.example.orderlite.presentation.order_record.order_record_item.DialogChoseAmount
 import com.example.orderlite.presentation.product.product_item.ProductItemFragment
 import com.example.orderlite.presentation.units_o_m.unit_o_m.MODE_ADD
 import com.example.orderlite.presentation.units_o_m.unit_o_m.MODE_EDIT
@@ -30,6 +31,7 @@ class ListProductsFragment : Fragment() {
     private var _binding: FragmentListProductsBinding? = null
     private val binding: FragmentListProductsBinding
         get() = _binding ?: throw RuntimeException("FragmentListProductsBinding == null")
+    var productAmount:Double = 0.0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,6 +56,7 @@ class ListProductsFragment : Fragment() {
             rvAdapter.submitList(it)
         }
         setupAddBtnOnClickListener()
+        launchRightMode()
     }
 
     private fun setupRecyclerView() {
@@ -66,12 +69,19 @@ class ListProductsFragment : Fragment() {
                 false
             )
         }
-        rvAdapter.productItemClickListener = {
+        rvAdapter.productItemClickListener = {productItem ->
             if (screenMode == MODE_LIST_VIEW) {
-                launchProductItemFragment(ProductItemFragment.newInstance(MODE_EDIT, it.id))
-            }
-            else{
-                TODO("Create behawior for mode choose")
+                launchProductItemFragment(ProductItemFragment.newInstance(MODE_EDIT, productItem.id))
+            } else {
+                with(viewModel){
+                    clearParams()
+                    setupProductItemId(productItem.id)
+                    setupUnitOMId(productItem.defaultUnitId)
+                    getUnitOMName(productItem.defaultUnitId)
+                    viewModel.unitOMName.observe(viewLifecycleOwner){ unitOMName ->
+                        launchChoseAmountDialog(productItem.name, unitOMName)
+                    }
+                }
             }
         }
     }
@@ -91,7 +101,36 @@ class ListProductsFragment : Fragment() {
         }
     }
 
+    private fun launchChoseAmountDialog(productName: String, unitOMName: String) {
+        DialogChoseAmount.showAmountDialog(parentFragmentManager, productName, unitOMName)
+    }
 
+//    private fun setupDialogListener() {
+//        parentFragmentManager.setFragmentResultListener(
+//            DialogChoseAmount.REQUEST_KEY,
+//            viewLifecycleOwner,
+//            FragmentResultListener { _, result ->
+//                productAmount =
+//                    result.getString(DialogChoseAmount.KEY_AMOUNT_RESPONSE)?.toDouble() ?: 0.0
+//                viewModel.setupOrderRecordAmount(productAmount)
+//                viewModel.addOrderRecord()
+//            }
+//            )
+//
+//    }
+
+    private fun setupDialogListener() {
+        parentFragmentManager.setFragmentResultListener(
+            DialogChoseAmount.REQUEST_KEY,
+            viewLifecycleOwner
+        ) { _, result ->
+            productAmount =
+                result.getString(DialogChoseAmount.KEY_AMOUNT_RESPONSE)?.toDouble() ?: 0.0
+            viewModel.setupOrderRecordAmount(productAmount)
+            viewModel.addOrderRecord()
+        }
+
+    }
 
     private fun parseParams() {
         val args = requireArguments()
@@ -101,7 +140,10 @@ class ListProductsFragment : Fragment() {
             throw RuntimeException("Unknown Screen Mode: $screenMode")
         if (screenMode == MODE_MULTI_CHOOSE) {
             if (!args.containsKey(ORDER_ID)) throw RuntimeException("OrderId is absent")
-            else orderId = args.getInt(ORDER_ID)
+            else {
+                orderId = args.getInt(ORDER_ID)
+                viewModel.setupOrderId(orderId)
+            }
         }
     }
 
@@ -116,7 +158,7 @@ class ListProductsFragment : Fragment() {
     }
 
     private fun launchModeMultiChoose() {
-        TODO("Not yet implemented")
+        setupDialogListener()
     }
 
     companion object {
