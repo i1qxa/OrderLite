@@ -24,4 +24,8 @@
     <string name="product_item_name">Product item name</string>
     <string name="enter_amount">Enter Amount</string>
     <string name="btnAdd">Add</string>
+    <string name="head_number_in_order">№</string>
+    <string name="head_rv_name">Name</string>
+    <string name="head_rv_unit_o_m">UnitOM</string>
+    <string name="head_rv_sum">Sum</string>
 </resources>
