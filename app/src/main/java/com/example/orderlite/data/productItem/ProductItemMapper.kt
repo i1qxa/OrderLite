@@ -6,14 +6,14 @@ class ProductItemMapper {
     fun mapProductItemToDb(productItem: ProductItem):ProductItemDbModel{
         return ProductItemDbModel(
             productItemId = productItem.id,
-            defaultUnitId = productItem.defaultUnitOM,
+            defaultUnitId = productItem.defaultUnitId,
             productItemName = productItem.name
         )
     }
     fun mapDBToProductItem(productItemDB: ProductItemDbModel):ProductItem{
         return ProductItem(
             id = productItemDB.productItemId,
-            defaultUnitOM = productItemDB.defaultUnitId,
+            defaultUnitId = productItemDB.defaultUnitId,
             name = productItemDB.productItemName
         )
     }

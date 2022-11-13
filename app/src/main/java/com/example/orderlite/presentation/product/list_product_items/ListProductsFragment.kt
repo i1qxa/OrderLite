@@ -148,13 +148,8 @@ class ListProductsFragment : Fragment() {
     }
 
     private fun launchRightMode() {
-        if (screenMode == MODE_LIST_VIEW) launchListViewMode()
-        else if (screenMode == MODE_MULTI_CHOOSE) launchModeMultiChoose()
+        if (screenMode == MODE_MULTI_CHOOSE) launchModeMultiChoose()
 
-    }
-
-    private fun launchListViewMode() {
-        TODO("Not yet implemented")
     }
 
     private fun launchModeMultiChoose() {

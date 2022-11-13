@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.orderlite.R
 import com.example.orderlite.databinding.FragmentListOrderBinding
 import com.example.orderlite.presentation.FragmentNameInstaller
-import com.example.orderlite.presentation.order_record.OrderBodyFragment
+import com.example.orderlite.presentation.order_record.order_body_list.OrderBodyFragment
 
 const val FRAGMENT_NAME_ORDER_LIST = "OrderList"
 
@@ -22,10 +22,6 @@ class ListOrderFragment : Fragment() {
     private lateinit var viewModel: ListOrderViewModel
     private lateinit var rvAdapter: ListOrderRVListAdapter
     private var orderId: Int? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

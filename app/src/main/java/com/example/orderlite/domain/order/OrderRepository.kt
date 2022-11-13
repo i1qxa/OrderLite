@@ -1,6 +1,7 @@
 package com.example.orderlite.domain.order
 
 import androidx.lifecycle.LiveData
+import com.example.orderlite.domain.orderRecord.OrderRecord
 import kotlinx.coroutines.flow.Flow
 
 interface OrderRepository {
@@ -9,5 +10,5 @@ interface OrderRepository {
 
     suspend fun addOrder(order: Order)
 
-
+    fun getLastOrderRecord():LiveData<OrderRecord>
 }
