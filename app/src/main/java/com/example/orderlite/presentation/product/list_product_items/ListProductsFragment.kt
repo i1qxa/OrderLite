@@ -31,7 +31,7 @@ class ListProductsFragment : Fragment() {
     private var _binding: FragmentListProductsBinding? = null
     private val binding: FragmentListProductsBinding
         get() = _binding ?: throw RuntimeException("FragmentListProductsBinding == null")
-    var productAmount:Double = 0.0
+    var productAmount: Double = 0.0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,12 +51,18 @@ class ListProductsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         FragmentNameInstaller.setName(FRAGMENT_NAME_PRODUCTS_LIST)
         viewModel = ViewModelProvider(this)[ListProductsViewModel::class.java]
+        setupOrderId()
+        launchRightMode()
         setupRecyclerView()
         viewModel.productItemList.observe(viewLifecycleOwner) {
             rvAdapter.submitList(it)
         }
         setupAddBtnOnClickListener()
-        launchRightMode()
+
+    }
+
+    private fun setupOrderId(){
+        viewModel.setupOrderId(orderId)
     }
 
     private fun setupRecyclerView() {
@@ -69,16 +75,17 @@ class ListProductsFragment : Fragment() {
                 false
             )
         }
-        rvAdapter.productItemClickListener = {productItem ->
+        rvAdapter.productItemClickListener = { productItem ->
             if (screenMode == MODE_LIST_VIEW) {
-                launchProductItemFragment(ProductItemFragment.newInstance(MODE_EDIT, productItem.id))
+                launchProductItemFragment(ProductItemFragment.newInstance(MODE_EDIT,
+                    productItem.id))
             } else {
-                with(viewModel){
+                with(viewModel) {
                     clearParams()
                     setupProductItemId(productItem.id)
                     setupUnitOMId(productItem.defaultUnitId)
                     getUnitOMName(productItem.defaultUnitId)
-                    viewModel.unitOMName.observe(viewLifecycleOwner){ unitOMName ->
+                    viewModel.unitOMName.observe(viewLifecycleOwner) { unitOMName ->
                         launchChoseAmountDialog(productItem.name, unitOMName)
                     }
                 }
@@ -105,20 +112,6 @@ class ListProductsFragment : Fragment() {
         DialogChoseAmount.showAmountDialog(parentFragmentManager, productName, unitOMName)
     }
 
-//    private fun setupDialogListener() {
-//        parentFragmentManager.setFragmentResultListener(
-//            DialogChoseAmount.REQUEST_KEY,
-//            viewLifecycleOwner,
-//            FragmentResultListener { _, result ->
-//                productAmount =
-//                    result.getString(DialogChoseAmount.KEY_AMOUNT_RESPONSE)?.toDouble() ?: 0.0
-//                viewModel.setupOrderRecordAmount(productAmount)
-//                viewModel.addOrderRecord()
-//            }
-//            )
-//
-//    }
-
     private fun setupDialogListener() {
         parentFragmentManager.setFragmentResultListener(
             DialogChoseAmount.REQUEST_KEY,
@@ -142,7 +135,6 @@ class ListProductsFragment : Fragment() {
             if (!args.containsKey(ORDER_ID)) throw RuntimeException("OrderId is absent")
             else {
                 orderId = args.getInt(ORDER_ID)
-                viewModel.setupOrderId(orderId)
             }
         }
     }

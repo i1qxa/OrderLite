@@ -28,7 +28,12 @@ class OrderBodyFragment : Fragment() {
     private lateinit var binding: FragmentOrderBodyBinding
     private lateinit var viewModel: OrderBodyViewModel
     private var orderId: Int = -1
-    private lateinit var rvAdapter:OrderBodyRVListAdapter
+    private lateinit var rvAdapter: OrderBodyRVListAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        parseParams()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,19 +46,19 @@ class OrderBodyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         FragmentNameInstaller.setName(FRAGMENT_NAME_ORDER_BODY)
-        parseParams()
         viewModel = ViewModelProvider(this)[OrderBodyViewModel::class.java]
         prepareViewModel()
         setupFabClickListener()
         setupRecyclerView()
+        observeViewModel()
     }
 
-    private fun setupRecyclerView(){
+    private fun setupRecyclerView() {
         rvAdapter = OrderBodyRVListAdapter()
         rvAdapter.onItemClickListener = {
             Log.d("OrderBody", it.productItem.name)
         }
-        with(binding.rvListProductItems){
+        with(binding.rvListProductItems) {
             adapter = rvAdapter
             layoutManager = LinearLayoutManager(
                 context,
@@ -63,24 +68,30 @@ class OrderBodyFragment : Fragment() {
         }
     }
 
-    private fun setupFabClickListener(){
+    private fun observeViewModel(){
+        viewModel.orderRecordList.observe(viewLifecycleOwner){
+            rvAdapter.submitList(it)
+        }
+    }
+
+    private fun setupFabClickListener() {
         binding.fabChooseProducts.setOnClickListener {
-            val fragment = ListProductsFragment.newInstance(MODE_MULTI_CHOOSE,orderId)
+            val fragment = ListProductsFragment.newInstance(MODE_MULTI_CHOOSE, orderId)
             launchProductListFragment(fragment)
         }
     }
 
-    private fun launchProductListFragment(fragment: ListProductsFragment){
+    private fun launchProductListFragment(fragment: ListProductsFragment) {
         parentFragmentManager.apply {
             beginTransaction()
-                .replace(R.id.mainContainerView,fragment)
+                .replace(R.id.mainContainerView, fragment)
                 .addToBackStack(null)
                 .commit()
         }
     }
 
     private fun prepareViewModel() {
-            viewModel.setOrderId(orderId)
+        viewModel.setOrderRecordJoinList(orderId)
     }
 
     private fun parseParams() {

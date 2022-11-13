@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.orderlite.data.order.OrderRepositoryImpl
 import com.example.orderlite.domain.order.AddOrderUseCase
+import com.example.orderlite.domain.order.GetOrderUseCase
 import com.example.orderlite.domain.order.GetOrderListUseCase
 import com.example.orderlite.domain.order.Order
 import kotlinx.coroutines.launch
@@ -16,13 +17,8 @@ class ListOrderViewModel(application: Application) : AndroidViewModel(applicatio
     private val repository = OrderRepositoryImpl(application)
     private val getListOrderUseCase = GetOrderListUseCase(repository)
     private val addOrderUseCase = AddOrderUseCase(repository)
-    private val getOrder
+    private val getOrderUseCase = GetOrderUseCase(repository)
     val orderList = getListOrderUseCase.getOrderList()
-    var _newOrderId = MutableLiveData<Int>()
-    val newOrderId:LiveData<Int>
-    get() = _newOrderId
-
-
 
     fun addOrder() {
         val newOrder = Order(0, Calendar.getInstance().time.toString())

@@ -21,7 +21,6 @@ class ListOrderFragment : Fragment() {
     private lateinit var fragmentNameInstaller: FragmentNameInstaller
     private lateinit var viewModel: ListOrderViewModel
     private lateinit var rvAdapter: ListOrderRVListAdapter
-    private var orderId: Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +37,7 @@ class ListOrderFragment : Fragment() {
         viewModel = ViewModelProvider(this)[ListOrderViewModel::class.java]
         setupOnClickListener()
         setupRecyclerView()
+        observeViewModel()
     }
 
     private fun setupOnClickListener() {
@@ -57,11 +57,17 @@ class ListOrderFragment : Fragment() {
             )
         }
         rvAdapter.orderItemClickListener = {
-            launchNewFragment(OrderBodyFragment.newInstance(it.id))
+            launchOrderBodyFragment(OrderBodyFragment.newInstance(it.id))
         }
     }
 
-    private fun launchNewFragment(fragment: OrderBodyFragment) {
+    private fun observeViewModel(){
+        viewModel.orderList.observe(viewLifecycleOwner){
+            rvAdapter.submitList(it)
+        }
+    }
+
+    private fun launchOrderBodyFragment(fragment: OrderBodyFragment) {
         parentFragmentManager.apply {
             beginTransaction()
                 .replace(R.id.mainContainerView, fragment)
