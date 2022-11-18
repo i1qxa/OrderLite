@@ -1,29 +1,20 @@
 package com.example.orderlite.presentation.order_record.order_body_list
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.orderlite.R
-import com.example.orderlite.databinding.FragmentListOrderBinding
 import com.example.orderlite.databinding.FragmentOrderBodyBinding
 import com.example.orderlite.presentation.FragmentNameInstaller
-import com.example.orderlite.presentation.order.FRAGMENT_NAME_ORDER_LIST
 import com.example.orderlite.presentation.product.list_product_items.ListProductsFragment
 import com.example.orderlite.presentation.product.list_product_items.MODE_MULTI_CHOOSE
 import com.example.orderlite.presentation.product.list_product_items.ORDER_ID
-
-const val FRAGMENT_NAME_ORDER_BODY = "Order"
 
 
 class OrderBodyFragment : Fragment() {
@@ -48,7 +39,7 @@ class OrderBodyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        FragmentNameInstaller.setName(FRAGMENT_NAME_ORDER_BODY)
+        FragmentNameInstaller.setName(R.string.order.toString())
         viewModel = ViewModelProvider(this)[OrderBodyViewModel::class.java]
         prepareViewModel()
         setupFabClickListener()
@@ -71,8 +62,8 @@ class OrderBodyFragment : Fragment() {
         }
     }
 
-    private fun observeViewModel(){
-        viewModel.orderRecordList.observe(viewLifecycleOwner){
+    private fun observeViewModel() {
+        viewModel.orderRecordList.observe(viewLifecycleOwner) {
             rvAdapter.submitList(it)
 
         }

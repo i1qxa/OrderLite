@@ -18,8 +18,6 @@ import com.example.orderlite.presentation.units_o_m.unit_o_m.MODE_ADD
 import com.example.orderlite.presentation.units_o_m.unit_o_m.MODE_EDIT
 import com.example.orderlite.presentation.units_o_m.unit_o_m.SCREEN_MODE
 
-const val FRAGMENT_NAME_PRODUCT_ITEM = "Product item"
-
 class ProductItemFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private var screenMode: String? = null
     private var productId: Int = 0
@@ -59,7 +57,7 @@ class ProductItemFragment : Fragment(), AdapterView.OnItemSelectedListener {
         super.onViewCreated(view, savedInstanceState)
         viewModel = androidx.lifecycle.ViewModelProvider(this)[ProductItemViewModel::class.java]
         fragmentNameInstaller = FragmentNameInstaller
-        fragmentNameInstaller.setName(FRAGMENT_NAME_PRODUCT_ITEM)
+        fragmentNameInstaller.setName(R.string.product_item.toString())
         setupSpinner()
         launchRightMode()
         setTextChangeListener()

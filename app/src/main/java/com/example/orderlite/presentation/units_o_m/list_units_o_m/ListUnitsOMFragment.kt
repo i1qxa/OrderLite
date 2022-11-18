@@ -15,8 +15,6 @@ import com.example.orderlite.presentation.FragmentNameInstaller
 import com.example.orderlite.presentation.units_o_m.unit_o_m.MODE_ADD
 import com.example.orderlite.presentation.units_o_m.unit_o_m.UnitOMFragment
 
-const val FRAGMENT_NAME_LIST_UNITS_O_M = "List Units om"
-
 class ListUnitsOMFragment : Fragment() {
 
     private lateinit var fragmentNameInstaller:FragmentNameInstaller
@@ -43,7 +41,7 @@ class ListUnitsOMFragment : Fragment() {
             rvAdapter.submitList(it)
         }
         fragmentNameInstaller=FragmentNameInstaller
-        fragmentNameInstaller.setName(FRAGMENT_NAME_LIST_UNITS_O_M)
+        fragmentNameInstaller.setName(R.string.unit_o_m_list.toString())
         setupOnClickListener()
     }
 

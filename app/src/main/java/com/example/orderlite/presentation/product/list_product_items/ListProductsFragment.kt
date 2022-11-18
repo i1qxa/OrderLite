@@ -17,7 +17,6 @@ import com.example.orderlite.presentation.units_o_m.unit_o_m.MODE_ADD
 import com.example.orderlite.presentation.units_o_m.unit_o_m.MODE_EDIT
 import com.example.orderlite.presentation.units_o_m.unit_o_m.SCREEN_MODE
 
-const val FRAGMENT_NAME_PRODUCTS_LIST = "Products List"
 const val MODE_LIST_VIEW = "list_view"
 const val MODE_MULTI_CHOOSE = "multi_choose"
 const val ORDER_ID = "order_id"
@@ -49,7 +48,7 @@ class ListProductsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        FragmentNameInstaller.setName(FRAGMENT_NAME_PRODUCTS_LIST)
+        FragmentNameInstaller.setName(R.string.product_list.toString())
         viewModel = ViewModelProvider(this)[ListProductsViewModel::class.java]
         launchRightMode()
         setupRecyclerView()
@@ -146,6 +145,7 @@ class ListProductsFragment : Fragment() {
     private fun launchModeMultiChoose() {
         setupDialogListener()
         setupOrderId()
+        FragmentNameInstaller.setName(R.string.choose_product_items.toString())
     }
 
     companion object {

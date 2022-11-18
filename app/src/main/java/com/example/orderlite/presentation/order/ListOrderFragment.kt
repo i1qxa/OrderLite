@@ -11,9 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.orderlite.R
 import com.example.orderlite.databinding.FragmentListOrderBinding
 import com.example.orderlite.presentation.FragmentNameInstaller
+import com.example.orderlite.presentation.MainActivity
 import com.example.orderlite.presentation.order_record.order_body_list.OrderBodyFragment
-
-const val FRAGMENT_NAME_ORDER_LIST = "OrderList"
 
 class ListOrderFragment : Fragment() {
 
@@ -33,7 +32,7 @@ class ListOrderFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fragmentNameInstaller = FragmentNameInstaller
-        fragmentNameInstaller.setName(FRAGMENT_NAME_ORDER_LIST)
+        fragmentNameInstaller.setName(R.string.order_list.toString())
         viewModel = ViewModelProvider(this)[ListOrderViewModel::class.java]
         setupOnClickListener()
         setupRecyclerView()

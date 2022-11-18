@@ -8,7 +8,12 @@
     <string name="previous">Previous</string>
     <string name="error_input_name">Name is empty!</string>
     <string name="error_input_short_name">Short name is empty!</string>
-
+    <string name="order">Order</string>
+    <string name="product_list">List Product Item</string>
+    <string name="product_item">Product Item</string>
+    <string name="choose_product_items">List choose Product Items</string>
+    <string name="unit_o_m_list">List Unit om</string>
+    <string name="unit_o_m_item">Unit om Item</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="units_of_measurement">Units of Measurement</string>

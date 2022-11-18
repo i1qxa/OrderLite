@@ -19,7 +19,6 @@ const val MODE_ADD = "mode_add"
 const val MODE_EDIT = "mode_edit"
 const val ITEM_ID = "item_id"
 const val DEFAULT_ID: Int = 0
-const val FRAGMENT_NAME_UNIT_O_M = "Unit om"
 
 class UnitOMFragment : Fragment() {
     private var screenMode: String? = null
@@ -50,7 +49,7 @@ class UnitOMFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[UnitOMViewModel::class.java]
         fragmentNameInstaller = FragmentNameInstaller
-        fragmentNameInstaller.setName(FRAGMENT_NAME_UNIT_O_M)
+        fragmentNameInstaller.setName(R.string.unit_o_m_item.toString())
         launchRightMode()
         setTextChangeListeners()
         observeViewModel()
