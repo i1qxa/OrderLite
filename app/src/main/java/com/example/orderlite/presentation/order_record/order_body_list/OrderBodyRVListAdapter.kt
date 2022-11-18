@@ -2,6 +2,8 @@ package com.example.orderlite.presentation.order_record.order_body_list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.EditText
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.ListAdapter
 import com.example.orderlite.R
 import com.example.orderlite.domain.orderRecord.OrderRecordWithProductItemAndUnitOMItem
@@ -32,5 +34,6 @@ class OrderBodyRVListAdapter:ListAdapter
         holder.itemView.setOnClickListener {
             onItemClickListener?.invoke(item)
         }
+
     }
 }

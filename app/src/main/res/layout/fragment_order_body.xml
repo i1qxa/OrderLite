@@ -18,58 +18,69 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/tvPosition"
-        app:layout_constraintHorizontal_weight="1"
+        android:id="@+id/tvOBPosition"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/head_number_in_order"
         app:layout_constraintEnd_toStartOf="@+id/tvOBProductName"
         app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvOBProductName"
-        app:layout_constraintHorizontal_weight="4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/head_rv_name"
-        app:layout_constraintEnd_toStartOf="@+id/tvOBUnitOMName"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/tvPosition"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvOBUnitOMName"
-        android:layout_width="0dp"
-        app:layout_constraintHorizontal_weight="2"
-        android:layout_height="wrap_content"
-        android:text="@string/head_rv_unit_o_m"
         app:layout_constraintEnd_toStartOf="@+id/tvOBAmount"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/tvOBProductName"
+        app:layout_constraintHorizontal_weight="3"
+        app:layout_constraintStart_toEndOf="@+id/tvOBPosition"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvOBAmount"
         android:layout_width="0dp"
-        app:layout_constraintHorizontal_weight="2"
         android:layout_height="wrap_content"
         android:text="Amount"
+        app:layout_constraintEnd_toStartOf="@+id/tvOBUnitOMName"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_weight="2"
+        app:layout_constraintStart_toEndOf="@+id/tvOBProductName"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvOBUnitOMName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/head_rv_unit_o_m"
+        app:layout_constraintEnd_toStartOf="@+id/tvOBPrice"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_weight="2"
+        app:layout_constraintStart_toEndOf="@+id/tvOBAmount"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvOBPrice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/et_name_price"
         app:layout_constraintEnd_toStartOf="@+id/tvOBSum"
         app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_weight="2"
         app:layout_constraintStart_toEndOf="@+id/tvOBUnitOMName"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvOBSum"
         android:layout_width="0dp"
-        app:layout_constraintHorizontal_weight="2"
         android:layout_height="wrap_content"
         android:text="@string/head_rv_sum"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/tvOBAmount"
+        app:layout_constraintHorizontal_weight="2"
+        app:layout_constraintStart_toEndOf="@+id/tvOBPrice"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -77,6 +88,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPosition" />
+        app:layout_constraintTop_toBottomOf="@+id/tvOBPosition" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

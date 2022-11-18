@@ -51,7 +51,6 @@ class ListProductsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         FragmentNameInstaller.setName(FRAGMENT_NAME_PRODUCTS_LIST)
         viewModel = ViewModelProvider(this)[ListProductsViewModel::class.java]
-        setupOrderId()
         launchRightMode()
         setupRecyclerView()
         viewModel.productItemList.observe(viewLifecycleOwner) {
@@ -146,6 +145,7 @@ class ListProductsFragment : Fragment() {
 
     private fun launchModeMultiChoose() {
         setupDialogListener()
+        setupOrderId()
     }
 
     companion object {

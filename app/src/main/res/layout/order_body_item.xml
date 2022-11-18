@@ -6,58 +6,74 @@
 
     <TextView
         android:id="@+id/tvOIOrderNumber"
-        android:text="@string/head_number_in_order"
-        app:layout_constraintHorizontal_weight="1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@+id/tvOIName"
+        android:text="@string/head_number_in_order"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintEnd_toStartOf="@+id/tvOIName"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/tvOIName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:text="@string/head_rv_name"
-        app:layout_constraintHorizontal_weight="4"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@+id/tvOIUnitOM"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/tvOIOrderNumber"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvOIUnitOM"
-        android:text="@string/head_rv_unit_o_m"
-        app:layout_constraintHorizontal_weight="2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        app:layout_constraintHorizontal_weight="3"
         app:layout_constraintEnd_toStartOf="@+id/etOIAmount"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/tvOIName"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/tvOIOrderNumber" />
+
 
     <EditText
         android:id="@+id/etOIAmount"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="none|number"
+        android:inputType="none|numberSigned|number"
         android:text="0.0"
-        app:layout_constraintEnd_toStartOf="@+id/tvOISum"
+        app:layout_constraintEnd_toStartOf="@+id/tvOIUnitOM"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_weight="2"
-        app:layout_constraintStart_toEndOf="@+id/tvOIUnitOM"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/tvOIName" />
+
+    <TextView
+        android:id="@+id/tvOIUnitOM"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/head_rv_unit_o_m"
+        app:layout_constraintEnd_toStartOf="@+id/etOIPrice"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/etOIAmount"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <EditText
+        android:id="@+id/etOIPrice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="none|numberSigned|number"
+        android:text="0.0"
+        app:layout_constraintEnd_toStartOf="@+id/tvOISum"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_weight="2"
+        app:layout_constraintStart_toEndOf="@+id/tvOIUnitOM" />
 
     <TextView
         android:id="@+id/tvOISum"
-        app:layout_constraintHorizontal_weight="2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/head_rv_sum"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/etOIAmount"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_weight="2"
+        app:layout_constraintStart_toEndOf="@+id/etOIPrice" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
