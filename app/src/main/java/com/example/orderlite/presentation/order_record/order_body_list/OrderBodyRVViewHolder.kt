@@ -10,7 +10,7 @@ class OrderBodyRVViewHolder(itemView:View):RecyclerView.ViewHolder(itemView) {
     val tvOIOrderNumber = itemView.findViewById<TextView>(R.id.tvOIOrderNumber)
     val tvOIName = itemView.findViewById<TextView>(R.id.tvOIName)
     val tvOIUnitOM = itemView.findViewById<TextView>(R.id.tvOIUnitOM)
-    val etOIAmount = itemView.findViewById<TextView>(R.id.etOIAmount)
+    val etOIAmount = itemView.findViewById<EditText>(R.id.etOIAmount)
     val tvOISum = itemView.findViewById<TextView>(R.id.tvOISum)
     val etOIPrice = itemView.findViewById<EditText>(R.id.etOIPrice)
 }

@@ -10,6 +10,7 @@ import com.example.orderlite.domain.orderRecord.OrderRecordRepository
 
 class OrderRecordRepositoryImpl(application: Application):OrderRecordRepository {
 
+    private var total:Double = 0.0
     private val orderRecordDao = AppDatabase.getInstance(application).orderRecordDbModelDao()
     private val mapper = OrderRecordMapper()
 
@@ -30,8 +31,8 @@ class OrderRecordRepositoryImpl(application: Application):OrderRecordRepository 
             mapper.mapListDBToOrderRecord(it)
         }
 
-    override suspend fun getOrderRecord(orderRecordId: Int): OrderRecord {
-        val orderRecordDB = orderRecordDao.getOrderRecord(orderRecordId)
+    override suspend fun getOrderRecord(orderId: Int, productItemId:Int): OrderRecord {
+        val orderRecordDB = orderRecordDao.getOrderRecord(orderId, productItemId)
         return mapper.mapDBToOrderRecord(orderRecordDB)
     }
 
@@ -39,4 +40,15 @@ class OrderRecordRepositoryImpl(application: Application):OrderRecordRepository 
         Transformations.map(orderRecordDao.getOrderRecordListWithProductItemAndUnitOMItemDB(orderId)){
             mapper.mapListDBToListOrderRecordWithProductItemAndUnitOMItem(it)
         }
+
+    override suspend fun addListOrderRecord(listOrderRecord: List<OrderRecord>) {
+        listOrderRecord.forEach{
+            val oldOrderRecordDBM = orderRecordDao.getOrderRecord(it.orderId, it.productId)
+            total = if (oldOrderRecordDBM!=null) oldOrderRecordDBM.amount + it.amount
+            else
+                it.amount
+            val newOrderRecordDBM = mapper.mapOrderRecordToDB(it).copy(amount = total)
+            orderRecordDao.addOrderRecord(newOrderRecordDBM)
+        }
+    }
 }

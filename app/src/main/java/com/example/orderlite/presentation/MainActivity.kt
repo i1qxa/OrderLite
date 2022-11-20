@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        launchNewFragment(ListOrderFragment.newInstance(MODE_LIST_VIEW))
 
         materialToolBar = binding.mainToolBar
         setSupportActionBar(materialToolBar)
@@ -55,7 +56,7 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.action_order_list ->{
-                launchNewFragment(ListOrderFragment.newInstance())
+                launchNewFragment(ListOrderFragment.newInstance(MODE_LIST_VIEW))
                 true
             }
             else -> super.onOptionsItemSelected(item)

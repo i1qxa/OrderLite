@@ -5,17 +5,22 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.orderlite.R
 import com.example.orderlite.databinding.FragmentOrderBodyBinding
+import com.example.orderlite.domain.orderRecord.OrderRecord
 import com.example.orderlite.presentation.FragmentNameInstaller
+import com.example.orderlite.presentation.order.ListOrderFragment
 import com.example.orderlite.presentation.product.list_product_items.ListProductsFragment
 import com.example.orderlite.presentation.product.list_product_items.MODE_MULTI_CHOOSE
 import com.example.orderlite.presentation.product.list_product_items.ORDER_ID
 
+const val REQUEST_ORDER_ID = "request_order_id"
 
 class OrderBodyFragment : Fragment() {
 
@@ -27,6 +32,7 @@ class OrderBodyFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         parseParams()
+
     }
 
     override fun onCreateView(
@@ -41,17 +47,23 @@ class OrderBodyFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         FragmentNameInstaller.setName(R.string.order.toString())
         viewModel = ViewModelProvider(this)[OrderBodyViewModel::class.java]
+        setupFragmentResultListener()
         prepareViewModel()
         setupFabClickListener()
         setupRecyclerView()
         observeViewModel()
     }
 
-    private fun setupRecyclerView() {
-        rvAdapter = OrderBodyRVListAdapter()
-        rvAdapter.onItemClickListener = {
-            Log.d("OrderBody", it.productItem.name)
+    private fun setupFragmentResultListener() {
+        parentFragmentManager.setFragmentResultListener(REQUEST_ORDER_ID, viewLifecycleOwner)
+        { _, result ->
+            val additionalOrderId = result.getInt(ORDER_ID)
+            viewModel.addRecordsFromAnotherOrder(additionalOrderId)
         }
+    }
+
+    private fun setupRecyclerView() {
+        setupRvAdapter()
         with(binding.rvListProductItems) {
             adapter = rvAdapter
             layoutManager = LinearLayoutManager(
@@ -62,10 +74,22 @@ class OrderBodyFragment : Fragment() {
         }
     }
 
+    private fun setupRvAdapter() {
+        rvAdapter = OrderBodyRVListAdapter()
+        rvAdapter.onItemClickListener = {
+            Log.d("OrderBody", it.productItem.name)
+        }
+        rvAdapter.onAmountChangeFinished = { record: OrderRecord, amountString: String ->
+            viewModel.changeOrderRecordAmount(record, amountString)
+        }
+        rvAdapter.onPriceChangeFinished = { record: OrderRecord, priceStr: String ->
+            viewModel.changeOrderRecordPrice(record, priceStr)
+        }
+    }
+
     private fun observeViewModel() {
         viewModel.orderRecordList.observe(viewLifecycleOwner) {
             rvAdapter.submitList(it)
-
         }
     }
 
@@ -73,6 +97,19 @@ class OrderBodyFragment : Fragment() {
         binding.fabChooseProducts.setOnClickListener {
             val fragment = ListProductsFragment.newInstance(MODE_MULTI_CHOOSE, orderId)
             launchProductListFragment(fragment)
+        }
+        binding.fabAddOrderBody.setOnClickListener {
+
+            launchOrderListFragment(ListOrderFragment.newInstance(MODE_MULTI_CHOOSE))
+        }
+    }
+
+    private fun launchOrderListFragment(fragment: ListOrderFragment) {
+        parentFragmentManager.apply {
+            beginTransaction()
+                .replace(R.id.mainContainerView, fragment)
+                .addToBackStack(null)
+                .commit()
         }
     }
 
