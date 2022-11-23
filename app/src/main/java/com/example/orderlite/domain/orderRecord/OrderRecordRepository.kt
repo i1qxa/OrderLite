@@ -9,13 +9,15 @@ interface OrderRecordRepository {
 
     suspend fun editOrderRecord(orderRecord: OrderRecord)
 
-    fun getOrderRecordList(orderId:Int):LiveData<List<OrderRecord>>
+    fun getOrderRecordLDList(orderId:Int):LiveData<List<OrderRecord>>
+
+    suspend fun getOrderRecordList(orderId:Int):List<OrderRecord>
 
     suspend fun getOrderRecord(orderId:Int, productItemId:Int):OrderRecord
 
     fun getOrderRecordJoinList(orderId:Int):LiveData<List<OrderRecordWithProductItemAndUnitOMItem>>
 
-    suspend fun addListOrderRecord(listOrderRecord:List<OrderRecord>)
+    suspend fun addListOrderRecord(baseListOrderRecord:List<OrderRecord>, additionalListOrderRecord:List<OrderRecord>)
 
 
 }

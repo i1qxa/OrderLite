@@ -26,10 +26,18 @@ class OrderRecordRepositoryImpl(application: Application):OrderRecordRepository 
         orderRecordDao.addOrderRecord(mapper.mapOrderRecordToDB(orderRecord))
     }
 
-    override fun getOrderRecordList(orderId: Int): LiveData<List<OrderRecord>> = Transformations
-        .map(orderRecordDao.getOrderRecordList(orderId)){
+    override fun getOrderRecordLDList(orderId: Int): LiveData<List<OrderRecord>> = Transformations
+        .map(orderRecordDao.getOrderRecordLDList(orderId)){
             mapper.mapListDBToOrderRecord(it)
         }
+
+    override suspend fun getOrderRecordList(orderId: Int): List<OrderRecord> {
+        val result = mutableListOf<OrderRecord>()
+        orderRecordDao.getOrderRecordList(orderId).forEach {
+            result.add(mapper.mapDBToOrderRecord(it))
+        }
+        return result
+    }
 
     override suspend fun getOrderRecord(orderId: Int, productItemId:Int): OrderRecord {
         val orderRecordDB = orderRecordDao.getOrderRecord(orderId, productItemId)
@@ -41,14 +49,16 @@ class OrderRecordRepositoryImpl(application: Application):OrderRecordRepository 
             mapper.mapListDBToListOrderRecordWithProductItemAndUnitOMItem(it)
         }
 
-    override suspend fun addListOrderRecord(listOrderRecord: List<OrderRecord>) {
-        listOrderRecord.forEach{
-            val oldOrderRecordDBM = orderRecordDao.getOrderRecord(it.orderId, it.productId)
-            total = if (oldOrderRecordDBM!=null) oldOrderRecordDBM.amount + it.amount
-            else
-                it.amount
-            val newOrderRecordDBM = mapper.mapOrderRecordToDB(it).copy(amount = total)
-            orderRecordDao.addOrderRecord(newOrderRecordDBM)
+    override suspend fun addListOrderRecord(baseListOrderRecord: List<OrderRecord>, additionalListOrderRecord:List<OrderRecord>) {
+        additionalListOrderRecord.forEach{additionalOrderRecord ->
+            baseListOrderRecord.forEach { baseOrderRecord ->
+                if (baseOrderRecord.productId == additionalOrderRecord.productId){
+                    val totalAmount = baseOrderRecord.amount + additionalOrderRecord.amount
+                    val orderRecord = baseOrderRecord.copy(amount = totalAmount)
+                    orderRecordDao.addOrderRecord(mapper.mapOrderRecordToDB(orderRecord))
+                    TODO("Реализовать механизм слияние 2х заказов")
+                }
+            }
         }
     }
 }

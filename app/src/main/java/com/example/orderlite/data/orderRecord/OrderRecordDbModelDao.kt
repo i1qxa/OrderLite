@@ -2,6 +2,7 @@ package com.example.orderlite.data.orderRecord
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.example.orderlite.domain.orderRecord.OrderRecord
 
 @Dao
 interface OrderRecordDbModelDao {
@@ -11,7 +12,9 @@ interface OrderRecordDbModelDao {
     @Query("DELETE FROM order_record WHERE order_id = :id")
     suspend fun deleteOrderRecord(id:Int)
     @Query("SELECT * FROM order_record WHERE order_id = :orderId")
-    fun getOrderRecordList(orderId:Int):LiveData<List<OrderRecordDbModel>>
+    fun getOrderRecordLDList(orderId:Int):LiveData<List<OrderRecordDbModel>>
+    @Query("SELECT * FROM ORDER_RECORD WHERE order_id = :orderId")
+    suspend fun getOrderRecordList(orderId: Int):List<OrderRecordDbModel>
     @Query("SELECT * FROM order_record WHERE order_id = :orderId & product_id = :productItemId")
     suspend fun getOrderRecord(orderId:Int, productItemId:Int): OrderRecordDbModel
     @Query("SELECT * FROM order_record WHERE order_id = :orderId")
