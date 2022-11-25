@@ -7,15 +7,32 @@ import com.example.orderlite.data.AppDatabase
 import com.example.orderlite.domain.orderRecord.OrderRecord
 import com.example.orderlite.domain.orderRecord.OrderRecordWithProductItemAndUnitOMItem
 import com.example.orderlite.domain.orderRecord.OrderRecordRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class OrderRecordRepositoryImpl(application: Application) : OrderRecordRepository {
 
-    private var total: Double = 0.0
     private val orderRecordDao = AppDatabase.getInstance(application).orderRecordDbModelDao()
     private val mapper = OrderRecordMapper()
 
     override suspend fun addOrderRecord(orderRecord: OrderRecord) {
-        orderRecordDao.addOrderRecord(mapper.mapOrderRecordToDB(orderRecord))
+        GlobalScope.launch(Dispatchers.IO) {
+            val existingRecord =
+                orderRecordDao.getOrderRecord(orderRecord.orderId, orderRecord.productId)
+
+            var a = existingRecord
+
+            var f =0
+            TODO("Нужно решить проблему с добавлением нового эллемента если он уже существует!!!")
+            if (existingRecord != null) {
+                val totalAmount = existingRecord.amount + orderRecord.amount
+                orderRecordDao.addOrderRecord(existingRecord.copy(amount = totalAmount))
+            } else {
+                orderRecordDao.addOrderRecord(mapper.mapOrderRecordToDB(orderRecord))
+            }
+        }
+        var b =3
     }
 
     override suspend fun deleteOrderRecord(orderRecordId: Int) {
@@ -70,8 +87,11 @@ class OrderRecordRepositoryImpl(application: Application) : OrderRecordRepositor
             } else {
                 newOrder = record.copy(id = 0, orderId = orderId)
             }
-            orderRecordDao.addOrderRecord(mapper.mapOrderRecordToDB(
-                newOrder?:throw RuntimeException("Order Record is null")))
+            orderRecordDao.addOrderRecord(
+                mapper.mapOrderRecordToDB(
+                    newOrder ?: throw RuntimeException("Order Record is null")
+                )
+            )
         }
     }
 }
