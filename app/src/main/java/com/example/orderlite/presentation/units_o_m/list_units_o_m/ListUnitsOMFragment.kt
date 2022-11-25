@@ -41,7 +41,7 @@ class ListUnitsOMFragment : Fragment() {
             rvAdapter.submitList(it)
         }
         fragmentNameInstaller=FragmentNameInstaller
-        fragmentNameInstaller.setName(R.string.unit_o_m_list.toString())
+        fragmentNameInstaller.setName(R.string.unit_o_m_list)
         setupOnClickListener()
     }
 

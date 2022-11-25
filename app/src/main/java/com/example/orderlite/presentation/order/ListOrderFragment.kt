@@ -44,7 +44,7 @@ class ListOrderFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fragmentNameInstaller = FragmentNameInstaller
-        fragmentNameInstaller.setName(R.string.order_list.toString())
+        fragmentNameInstaller.setName(R.string.order_list)
         viewModel = ViewModelProvider(this)[ListOrderViewModel::class.java]
         setupOnClickListener()
         setupRecyclerView()

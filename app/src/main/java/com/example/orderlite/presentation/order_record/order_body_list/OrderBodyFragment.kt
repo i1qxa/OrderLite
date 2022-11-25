@@ -45,7 +45,7 @@ class OrderBodyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        FragmentNameInstaller.setName(R.string.order.toString())
+        FragmentNameInstaller.setName(R.string.order)
         viewModel = ViewModelProvider(this)[OrderBodyViewModel::class.java]
         setupFragmentResultListener()
         prepareViewModel()
@@ -99,7 +99,6 @@ class OrderBodyFragment : Fragment() {
             launchProductListFragment(fragment)
         }
         binding.fabAddOrderBody.setOnClickListener {
-
             launchOrderListFragment(ListOrderFragment.newInstance(MODE_MULTI_CHOOSE))
         }
     }

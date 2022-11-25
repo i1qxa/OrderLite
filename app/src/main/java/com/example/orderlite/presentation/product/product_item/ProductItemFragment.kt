@@ -57,7 +57,7 @@ class ProductItemFragment : Fragment(), AdapterView.OnItemSelectedListener {
         super.onViewCreated(view, savedInstanceState)
         viewModel = androidx.lifecycle.ViewModelProvider(this)[ProductItemViewModel::class.java]
         fragmentNameInstaller = FragmentNameInstaller
-        fragmentNameInstaller.setName(R.string.product_item.toString())
+        fragmentNameInstaller.setName(R.string.product_item)
         setupSpinner()
         launchRightMode()
         setTextChangeListener()

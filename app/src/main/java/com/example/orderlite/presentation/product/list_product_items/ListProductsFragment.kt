@@ -48,7 +48,7 @@ class ListProductsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        FragmentNameInstaller.setName(R.string.product_list.toString())
+        FragmentNameInstaller.setName(R.string.product_list)
         viewModel = ViewModelProvider(this)[ListProductsViewModel::class.java]
         launchRightMode()
         setupRecyclerView()
@@ -145,7 +145,7 @@ class ListProductsFragment : Fragment() {
     private fun launchModeMultiChoose() {
         setupDialogListener()
         setupOrderId()
-        FragmentNameInstaller.setName(R.string.choose_product_items.toString())
+        FragmentNameInstaller.setName(R.string.choose_product_items)
     }
 
     companion object {

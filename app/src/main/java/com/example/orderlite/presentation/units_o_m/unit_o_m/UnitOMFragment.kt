@@ -49,7 +49,7 @@ class UnitOMFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[UnitOMViewModel::class.java]
         fragmentNameInstaller = FragmentNameInstaller
-        fragmentNameInstaller.setName(R.string.unit_o_m_item.toString())
+        fragmentNameInstaller.setName(R.string.unit_o_m_item)
         launchRightMode()
         setTextChangeListeners()
         observeViewModel()

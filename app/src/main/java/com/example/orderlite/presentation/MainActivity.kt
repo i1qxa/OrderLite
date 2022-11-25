@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun observeFragmentName(){
         FragmentNameInstaller.currentFragmentName.observe(this){
-            binding.fragmentName.text = it
+            binding.fragmentName.text = getString(it)
         }
     }
 
@@ -62,6 +62,7 @@ class MainActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
     private fun launchNewFragment(fragment: Fragment){
         supportFragmentManager.apply {
             beginTransaction()

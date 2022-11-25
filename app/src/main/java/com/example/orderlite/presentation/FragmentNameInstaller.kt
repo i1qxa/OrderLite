@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
 object FragmentNameInstaller {
-    private var _currentFragmentName = MutableLiveData<String>()
-    val currentFragmentName:LiveData<String>
+    private var _currentFragmentName = MutableLiveData<Int>()
+    val currentFragmentName:LiveData<Int>
     get() = _currentFragmentName
-    fun setName(name:String){
-        _currentFragmentName.value = name
+    fun setName(fragmentNameInt:Int){
+        _currentFragmentName.value = fragmentNameInt
     }
 }

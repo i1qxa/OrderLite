@@ -12,8 +12,6 @@ class OrderBodyViewModel(application: Application) : AndroidViewModel(applicatio
     private val repository = OrderRecordRepositoryImpl(application)
     private val getOrderRecordWithProductItemAndUnitOMItemListUseCase =
         GetOrderRecordWithProductItemAndUnitOMItemListUseCase(repository)
-    private val getOrderRecordLDListUseCase =
-        GetOrderRecordLDListUseCase(repository)
     private val getOrderRecordListUseCase =
         GerOrderRecordListUseCase(repository)
     private val editOrderRecordUseCase = EditOrderRecordUseCase(repository)
