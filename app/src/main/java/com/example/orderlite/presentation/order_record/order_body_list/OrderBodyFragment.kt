@@ -58,7 +58,7 @@ class OrderBodyFragment : Fragment() {
         parentFragmentManager.setFragmentResultListener(REQUEST_ORDER_ID, viewLifecycleOwner)
         { _, result ->
             val additionalOrderId = result.getInt(ORDER_ID)
-            viewModel.addRecordsFromAnotherOrder(additionalOrderId)
+            viewModel.addRecordsFromAnotherOrder(orderId, additionalOrderId)
         }
     }
 

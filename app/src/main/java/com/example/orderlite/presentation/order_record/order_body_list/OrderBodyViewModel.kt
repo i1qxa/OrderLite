@@ -47,11 +47,11 @@ class OrderBodyViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
-    fun addRecordsFromAnotherOrder(orderId: Int) {
+    fun addRecordsFromAnotherOrder(baseOrderId:Int, additionalOrderId: Int) {
         viewModelScope.launch {
-            val additionalOrder = getOrderRecordListUseCase.getOrderRecordList(orderId)
-            var a =1
-            addListOrderRecordUseCase.addListOrderRecord(additionalOrder)
+            val additionalOrder = getOrderRecordListUseCase.getOrderRecordList(additionalOrderId)
+            val baseOrder = getOrderRecordListUseCase.getOrderRecordList(baseOrderId)
+            addListOrderRecordUseCase.addListOrderRecord(baseOrder,additionalOrder,baseOrderId)
         }
     }
 }

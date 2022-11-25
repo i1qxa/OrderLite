@@ -8,13 +8,13 @@ import com.example.orderlite.domain.orderRecord.OrderRecord
 import com.example.orderlite.domain.orderRecord.OrderRecordWithProductItemAndUnitOMItem
 import com.example.orderlite.domain.orderRecord.OrderRecordRepository
 
-class OrderRecordRepositoryImpl(application: Application):OrderRecordRepository {
+class OrderRecordRepositoryImpl(application: Application) : OrderRecordRepository {
 
-    private var total:Double = 0.0
+    private var total: Double = 0.0
     private val orderRecordDao = AppDatabase.getInstance(application).orderRecordDbModelDao()
     private val mapper = OrderRecordMapper()
 
-    override suspend  fun addOrderRecord(orderRecord: OrderRecord) {
+    override suspend fun addOrderRecord(orderRecord: OrderRecord) {
         orderRecordDao.addOrderRecord(mapper.mapOrderRecordToDB(orderRecord))
     }
 
@@ -27,7 +27,7 @@ class OrderRecordRepositoryImpl(application: Application):OrderRecordRepository 
     }
 
     override fun getOrderRecordLDList(orderId: Int): LiveData<List<OrderRecord>> = Transformations
-        .map(orderRecordDao.getOrderRecordLDList(orderId)){
+        .map(orderRecordDao.getOrderRecordLDList(orderId)) {
             mapper.mapListDBToOrderRecord(it)
         }
 
@@ -39,26 +39,39 @@ class OrderRecordRepositoryImpl(application: Application):OrderRecordRepository 
         return result
     }
 
-    override suspend fun getOrderRecord(orderId: Int, productItemId:Int): OrderRecord {
+    override suspend fun getOrderRecord(orderId: Int, productItemId: Int): OrderRecord {
         val orderRecordDB = orderRecordDao.getOrderRecord(orderId, productItemId)
         return mapper.mapDBToOrderRecord(orderRecordDB)
     }
 
     override fun getOrderRecordJoinList(orderId: Int): LiveData<List<OrderRecordWithProductItemAndUnitOMItem>> =
-        Transformations.map(orderRecordDao.getOrderRecordListWithProductItemAndUnitOMItemDB(orderId)){
+        Transformations.map(orderRecordDao.getOrderRecordListWithProductItemAndUnitOMItemDB(orderId)) {
             mapper.mapListDBToListOrderRecordWithProductItemAndUnitOMItem(it)
         }
 
-    override suspend fun addListOrderRecord(baseListOrderRecord: List<OrderRecord>, additionalListOrderRecord:List<OrderRecord>) {
-        additionalListOrderRecord.forEach{additionalOrderRecord ->
-            baseListOrderRecord.forEach { baseOrderRecord ->
-                if (baseOrderRecord.productId == additionalOrderRecord.productId){
-                    val totalAmount = baseOrderRecord.amount + additionalOrderRecord.amount
-                    val orderRecord = baseOrderRecord.copy(amount = totalAmount)
-                    orderRecordDao.addOrderRecord(mapper.mapOrderRecordToDB(orderRecord))
-                    TODO("Реализовать механизм слияние 2х заказов")
-                }
+    override suspend fun addListOrderRecord(
+        baseListOrderRecord: List<OrderRecord>,
+        additionalListOrderRecord: List<OrderRecord>,
+        orderId: Int
+    ) {
+        var newOrder: OrderRecord? = null
+        var baseOrder: OrderRecord
+        var totalAmount = 0.0
+        val mapBaseList = mutableMapOf<Int, OrderRecord>()
+        baseListOrderRecord.forEach { record ->
+            mapBaseList[record.productId] = record
+        }
+        additionalListOrderRecord.forEach { record ->
+            if (mapBaseList.containsKey(record.productId)) {
+                baseOrder = mapBaseList[record.productId]
+                    ?: throw RuntimeException("OrderRecord in map = null")
+                totalAmount = baseOrder.amount + record.amount
+                newOrder = baseOrder.copy(amount = totalAmount)
+            } else {
+                newOrder = record.copy(id = 0, orderId = orderId)
             }
+            orderRecordDao.addOrderRecord(mapper.mapOrderRecordToDB(
+                newOrder?:throw RuntimeException("Order Record is null")))
         }
     }
 }
