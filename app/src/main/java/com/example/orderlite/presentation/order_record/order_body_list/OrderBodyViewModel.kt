@@ -12,8 +12,6 @@ class OrderBodyViewModel(application: Application) : AndroidViewModel(applicatio
     private val repository = OrderRecordRepositoryImpl(application)
     private val getOrderRecordWithProductItemAndUnitOMItemListUseCase =
         GetOrderRecordWithProductItemAndUnitOMItemListUseCase(repository)
-    private val getOrderRecordListUseCase =
-        GerOrderRecordListUseCase(repository)
     private val editOrderRecordUseCase = EditOrderRecordUseCase(repository)
     private val addListOrderRecordUseCase = AddListOrderRecordUseCase(repository)
     lateinit var orderRecordList: LiveData<List<OrderRecordWithProductItemAndUnitOMItem>>
@@ -45,11 +43,9 @@ class OrderBodyViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
-    fun addRecordsFromAnotherOrder(baseOrderId:Int, additionalOrderId: Int) {
+    fun addRecordsFromAnotherOrder(baseOrderId: Int, additionalOrderId: Int) {
         viewModelScope.launch {
-            val additionalOrder = getOrderRecordListUseCase.getOrderRecordList(additionalOrderId)
-            val baseOrder = getOrderRecordListUseCase.getOrderRecordList(baseOrderId)
-            addListOrderRecordUseCase.addListOrderRecord(baseOrder,additionalOrder,baseOrderId)
+            addListOrderRecordUseCase.addListOrderRecord(baseOrderId, additionalOrderId)
         }
     }
 }

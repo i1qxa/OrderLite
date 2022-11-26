@@ -19,7 +19,7 @@ interface OrderRecordDbModelDao {
     @Query("SELECT * FROM order_record WHERE order_id = :orderId")
     suspend fun getOrderRecordList(orderId: Int):List<OrderRecordDbModel>
 
-    @Query("SELECT * FROM order_record WHERE order_id = :orderId & product_id = :productItemId LIMIT 1")
+    @Query("SELECT * FROM order_record WHERE order_id = :orderId AND product_id = :productItemId LIMIT 1")
     suspend fun getOrderRecord(orderId:Int, productItemId:Int): OrderRecordDbModel
 
     @Query("SELECT * FROM order_record WHERE order_id = :orderId")

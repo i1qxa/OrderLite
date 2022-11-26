@@ -20,11 +20,6 @@ class OrderRecordRepositoryImpl(application: Application) : OrderRecordRepositor
         GlobalScope.launch(Dispatchers.IO) {
             val existingRecord =
                 orderRecordDao.getOrderRecord(orderRecord.orderId, orderRecord.productId)
-
-            var a = existingRecord
-
-            var f =0
-            TODO("Нужно решить проблему с добавлением нового эллемента если он уже существует!!!")
             if (existingRecord != null) {
                 val totalAmount = existingRecord.amount + orderRecord.amount
                 orderRecordDao.addOrderRecord(existingRecord.copy(amount = totalAmount))
@@ -32,7 +27,6 @@ class OrderRecordRepositoryImpl(application: Application) : OrderRecordRepositor
                 orderRecordDao.addOrderRecord(mapper.mapOrderRecordToDB(orderRecord))
             }
         }
-        var b =3
     }
 
     override suspend fun deleteOrderRecord(orderRecordId: Int) {
@@ -66,32 +60,11 @@ class OrderRecordRepositoryImpl(application: Application) : OrderRecordRepositor
             mapper.mapListDBToListOrderRecordWithProductItemAndUnitOMItem(it)
         }
 
-    override suspend fun addListOrderRecord(
-        baseListOrderRecord: List<OrderRecord>,
-        additionalListOrderRecord: List<OrderRecord>,
-        orderId: Int
-    ) {
-        var newOrder: OrderRecord? = null
-        var baseOrder: OrderRecord
-        var totalAmount = 0.0
-        val mapBaseList = mutableMapOf<Int, OrderRecord>()
-        baseListOrderRecord.forEach { record ->
-            mapBaseList[record.productId] = record
-        }
-        additionalListOrderRecord.forEach { record ->
-            if (mapBaseList.containsKey(record.productId)) {
-                baseOrder = mapBaseList[record.productId]
-                    ?: throw RuntimeException("OrderRecord in map = null")
-                totalAmount = baseOrder.amount + record.amount
-                newOrder = baseOrder.copy(amount = totalAmount)
-            } else {
-                newOrder = record.copy(id = 0, orderId = orderId)
-            }
-            orderRecordDao.addOrderRecord(
-                mapper.mapOrderRecordToDB(
-                    newOrder ?: throw RuntimeException("Order Record is null")
-                )
-            )
+    override suspend fun addListOrderRecord(baseOrderId: Int,additionalOrderId: Int) {
+        val additionalList = getOrderRecordList(additionalOrderId)
+        additionalList.forEach {
+            val newRecord = it.copy(id = 0, orderId = baseOrderId)
+            addOrderRecord(newRecord)
         }
     }
 }

@@ -17,7 +17,7 @@ interface OrderRecordRepository {
 
     fun getOrderRecordJoinList(orderId:Int):LiveData<List<OrderRecordWithProductItemAndUnitOMItem>>
 
-    suspend fun addListOrderRecord(baseListOrderRecord:List<OrderRecord>, additionalListOrderRecord:List<OrderRecord>, orderId:Int)
+    suspend fun addListOrderRecord(baseOrderId:Int, additionalOrderId:Int)
 
 
 }
