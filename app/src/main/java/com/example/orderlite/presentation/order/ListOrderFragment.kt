@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -77,6 +76,9 @@ class ListOrderFragment : Fragment() {
                 )
                 parentFragmentManager.popBackStack()
             }
+        }
+        rvAdapter.orderItemLongClickListener = {
+            viewModel.deleteOrder(it.id)
         }
     }
 

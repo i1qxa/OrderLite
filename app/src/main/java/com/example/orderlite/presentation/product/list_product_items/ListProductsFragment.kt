@@ -52,11 +52,15 @@ class ListProductsFragment : Fragment() {
         viewModel = ViewModelProvider(this)[ListProductsViewModel::class.java]
         launchRightMode()
         setupRecyclerView()
+        observeViewModel()
+        setupAddBtnOnClickListener()
+
+    }
+
+    private fun observeViewModel(){
         viewModel.productItemList.observe(viewLifecycleOwner) {
             rvAdapter.submitList(it)
         }
-        setupAddBtnOnClickListener()
-
     }
 
     private fun setupOrderId(){

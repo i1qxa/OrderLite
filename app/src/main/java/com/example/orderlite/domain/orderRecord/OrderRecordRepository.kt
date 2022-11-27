@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 interface OrderRecordRepository {
     suspend fun addOrderRecord(orderRecord: OrderRecord)
 
-    suspend fun deleteOrderRecord(orderRecordId:Int)
+    suspend fun deleteOrderRecord(orderId:Int, productItemId:Int)
 
     suspend fun editOrderRecord(orderRecord: OrderRecord)
 

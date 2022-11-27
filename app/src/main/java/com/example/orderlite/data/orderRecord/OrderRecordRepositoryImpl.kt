@@ -29,8 +29,8 @@ class OrderRecordRepositoryImpl(application: Application) : OrderRecordRepositor
         }
     }
 
-    override suspend fun deleteOrderRecord(orderRecordId: Int) {
-        orderRecordDao.deleteOrderRecord(orderRecordId)
+    override suspend fun deleteOrderRecord(orderRecordId: Int, productItemId: Int) {
+        orderRecordDao.deleteOrderRecord(orderRecordId, productItemId)
     }
 
     override suspend fun editOrderRecord(orderRecord: OrderRecord) {

@@ -5,98 +5,46 @@
     android:id="@+id/fabAddProducts"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:layout_constraintVertical_weight="10"
     tools:context=".presentation.order_record.order_body_list.OrderBodyFragment">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabChooseProducts"
-        android:layout_width="wrap_content"
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnAddOrderBody"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:clickable="true"
         android:focusable="true"
-        android:src="@android:drawable/checkbox_on_background"
+        android:text="@string/btn_add_order_text"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/btnChooseProducts" />
 
-    <TextView
-        android:id="@+id/tvOBPosition"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnChooseProducts"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/head_number_in_order"
-        app:layout_constraintEnd_toStartOf="@+id/tvOBProductName"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="@string/btn_add_product_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnAddOrderBody"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvOBProductName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/head_rv_name"
-        app:layout_constraintEnd_toStartOf="@+id/tvOBAmount"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_weight="3"
-        app:layout_constraintStart_toEndOf="@+id/tvOBPosition"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvOBAmount"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Amount"
-        app:layout_constraintEnd_toStartOf="@+id/tvOBUnitOMName"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_weight="2"
-        app:layout_constraintStart_toEndOf="@+id/tvOBProductName"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvOBUnitOMName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/head_rv_unit_o_m"
-        app:layout_constraintEnd_toStartOf="@+id/tvOBPrice"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_weight="2"
-        app:layout_constraintStart_toEndOf="@+id/tvOBAmount"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvOBPrice"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/et_name_price"
-        app:layout_constraintEnd_toStartOf="@+id/tvOBSum"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_weight="2"
-        app:layout_constraintStart_toEndOf="@+id/tvOBUnitOMName"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvOBSum"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/head_rv_sum"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_weight="2"
-        app:layout_constraintStart_toEndOf="@+id/tvOBPrice"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/rvListProductItems" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvListProductItems"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvOBPosition" />
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnChooseProducts"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_weight="10">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabAddOrderBody"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:src="@android:drawable/ic_input_add"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+    </androidx.recyclerview.widget.RecyclerView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

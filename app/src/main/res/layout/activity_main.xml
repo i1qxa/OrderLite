@@ -24,6 +24,8 @@
         android:id="@+id/fragmentName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:textColor="@color/white"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="@+id/mainToolBar"
         app:layout_constraintStart_toStartOf="@+id/mainToolBar"

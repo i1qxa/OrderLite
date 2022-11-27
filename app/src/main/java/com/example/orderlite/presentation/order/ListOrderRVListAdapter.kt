@@ -9,6 +9,7 @@ class ListOrderRVListAdapter:androidx.recyclerview.widget.ListAdapter
 <Order,ListOrderViewHolder>(ListOrderDiffCallBack()) {
 
     var orderItemClickListener: ((Order) -> Unit)?=null
+    var orderItemLongClickListener: ((Order) -> Unit)?=null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListOrderViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -28,6 +29,10 @@ class ListOrderRVListAdapter:androidx.recyclerview.widget.ListAdapter
             tvOrderDate.text = orderItem.date
             itemView.setOnClickListener {
                 orderItemClickListener?.invoke(orderItem)
+            }
+            itemView.setOnLongClickListener{
+                orderItemLongClickListener?.invoke(orderItem)
+                true
             }
         }
 

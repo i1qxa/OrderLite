@@ -9,4 +9,6 @@ interface OrderRepository {
     suspend fun addOrder(order: Order)
 
     suspend fun getOrder(id:Int):Order
+
+    suspend fun deleteOrderRecordsWithOrder(id:Int)
 }

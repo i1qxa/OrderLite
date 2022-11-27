@@ -14,12 +14,13 @@ class OrderBodyViewModel(application: Application) : AndroidViewModel(applicatio
         GetOrderRecordWithProductItemAndUnitOMItemListUseCase(repository)
     private val editOrderRecordUseCase = EditOrderRecordUseCase(repository)
     private val addListOrderRecordUseCase = AddListOrderRecordUseCase(repository)
+    private val deleteOrderRecordUseCase = DeleteOrderRecordUseCase(repository)
     lateinit var orderRecordList: LiveData<List<OrderRecordWithProductItemAndUnitOMItem>>
 
     fun setOrderRecordJoinList(orderId: Int) {
         orderRecordList =
             getOrderRecordWithProductItemAndUnitOMItemListUseCase.getOrderRecordJoinList(orderId)
-    }
+        }
 
     fun changeOrderRecordAmount(record: OrderRecord, amountStr: String) {
         val amount = amountStr.toDouble()
@@ -46,6 +47,12 @@ class OrderBodyViewModel(application: Application) : AndroidViewModel(applicatio
     fun addRecordsFromAnotherOrder(baseOrderId: Int, additionalOrderId: Int) {
         viewModelScope.launch {
             addListOrderRecordUseCase.addListOrderRecord(baseOrderId, additionalOrderId)
+        }
+    }
+
+    fun deleteOrderRecord(orderId:Int, productItemId:Int){
+        viewModelScope.launch {
+            deleteOrderRecordUseCase.deleteOrderRecord(orderId, productItemId)
         }
     }
 }

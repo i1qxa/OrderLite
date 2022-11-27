@@ -11,7 +11,7 @@ import com.example.orderlite.domain.orderRecord.OrderRecordWithProductItemAndUni
 class OrderBodyRVListAdapter : ListAdapter
 <OrderRecordWithProductItemAndUnitOMItem, OrderBodyRVViewHolder>
     (OrderBodyRVDiffCallBack()) {
-    var onItemClickListener: ((OrderRecordWithProductItemAndUnitOMItem) -> Unit)? = null
+    var onItemLongClickListener: ((OrderRecordWithProductItemAndUnitOMItem) -> Unit)? = null
     var onAmountChangeFinished: ((OrderRecord, amountStr: String) -> Unit)? = null
     var onPriceChangeFinished: ((OrderRecord, priceStr:String) -> Unit)? = null
 
@@ -29,15 +29,15 @@ class OrderBodyRVListAdapter : ListAdapter
     override fun onBindViewHolder(holder: OrderBodyRVViewHolder, position: Int) {
         val item = getItem(position)
         with(holder) {
-            tvOIOrderNumber.text = position.toString()
             tvOIName.text = item.productItem.name
             tvOIUnitOM.text = item.unitOMItem.shortName
             etOIAmount.setText(item.orderRecord.amount.toString())
             etOIPrice.setText(item.orderRecord.price.toString())
             tvOISum.text = (item.orderRecord.amount * item.orderRecord.price).toString()
         }
-        holder.itemView.setOnClickListener {
-            onItemClickListener?.invoke(item)
+        holder.itemView.setOnLongClickListener {
+            onItemLongClickListener?.invoke(item)
+            true
         }
         holder.etOIAmount.setOnFocusChangeListener { v, hasFocus ->
             val amountStr = v.findViewById<EditText>(R.id.etOIAmount).text.toString()
@@ -53,4 +53,8 @@ class OrderBodyRVListAdapter : ListAdapter
         }
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return super.getItemViewType(position)
+
+    }
 }

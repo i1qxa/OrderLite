@@ -24,4 +24,8 @@ class OrderRepositoryImpl(application: Application):OrderRepository {
     override suspend fun getOrder(id:Int): Order {
         return mapper.mapDBModelToOrder(orderDBModelDao.getOrder(id))
     }
+
+    override suspend fun deleteOrderRecordsWithOrder(id: Int) {
+        orderDBModelDao.deleteOrderRecordsWithOrder(id)
+    }
 }

@@ -32,7 +32,6 @@ class OrderBodyFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         parseParams()
-
     }
 
     override fun onCreateView(
@@ -76,8 +75,8 @@ class OrderBodyFragment : Fragment() {
 
     private fun setupRvAdapter() {
         rvAdapter = OrderBodyRVListAdapter()
-        rvAdapter.onItemClickListener = {
-            Log.d("OrderBody", it.productItem.name)
+        rvAdapter.onItemLongClickListener = {
+            viewModel.deleteOrderRecord(it.orderRecord.orderId, it.orderRecord.productId)
         }
         rvAdapter.onAmountChangeFinished = { record: OrderRecord, amountString: String ->
             viewModel.changeOrderRecordAmount(record, amountString)
@@ -89,16 +88,19 @@ class OrderBodyFragment : Fragment() {
 
     private fun observeViewModel() {
         viewModel.orderRecordList.observe(viewLifecycleOwner) {
-            rvAdapter.submitList(it)
+            val sortedList = it.sortedBy { it ->
+                it.productItem.name
+            }
+            rvAdapter.submitList(sortedList)
         }
     }
 
     private fun setupFabClickListener() {
-        binding.fabChooseProducts.setOnClickListener {
+        binding.btnChooseProducts.setOnClickListener {
             val fragment = ListProductsFragment.newInstance(MODE_MULTI_CHOOSE, orderId)
             launchProductListFragment(fragment)
         }
-        binding.fabAddOrderBody.setOnClickListener {
+        binding.btnAddOrderBody.setOnClickListener {
             launchOrderListFragment(ListOrderFragment.newInstance(MODE_MULTI_CHOOSE))
         }
     }

@@ -17,6 +17,5 @@ data class OrderRecordWithProductItemAndUnitOMItemDBModel(
      parentColumn = "unit_id",
      entityColumn = "unit_id"
  )
- val unitOMDB:UnitsOMDbModel
-
+ val unitOMDB:UnitsOMDbModel,
 )

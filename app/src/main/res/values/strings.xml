@@ -33,4 +33,6 @@
     <string name="head_rv_name">Name</string>
     <string name="head_rv_unit_o_m">UnitOM</string>
     <string name="head_rv_sum">Sum</string>
+    <string name="btn_add_order_text">Add Order</string>
+    <string name="btn_add_product_text">Add Product</string>
 </resources>

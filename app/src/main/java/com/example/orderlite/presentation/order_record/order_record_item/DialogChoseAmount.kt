@@ -48,12 +48,14 @@ class DialogChoseAmount : DialogFragment() {
                 REQUEST_KEY,
                 bundleOf(KEY_AMOUNT_RESPONSE to binding.etAmount.text.toString())
             )
+            parentFragmentManager.popBackStack()
             dismissNow()
         }
     }
 
     private fun setupBtnCancelClickListener() {
         btnCancel.setOnClickListener {
+            parentFragmentManager.popBackStack()
             dismissNow()
         }
     }
