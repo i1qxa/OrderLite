@@ -29,8 +29,8 @@ class OrderRecordRepositoryImpl(application: Application) : OrderRecordRepositor
         }
     }
 
-    override suspend fun deleteOrderRecord(orderRecordId: Int, productItemId: Int) {
-        orderRecordDao.deleteOrderRecord(orderRecordId, productItemId)
+    override suspend fun deleteOrderRecord(orderId: Int, productItemId: Int) {
+        orderRecordDao.deleteOrderRecord(orderId, productItemId)
     }
 
     override suspend fun editOrderRecord(orderRecord: OrderRecord) {
@@ -63,7 +63,7 @@ class OrderRecordRepositoryImpl(application: Application) : OrderRecordRepositor
     override suspend fun addListOrderRecord(baseOrderId: Int,additionalOrderId: Int) {
         val additionalList = getOrderRecordList(additionalOrderId)
         additionalList.forEach {
-            val newRecord = it.copy(id = 0, orderId = baseOrderId)
+            val newRecord = it.copy(orderRecordId = 0, orderId = baseOrderId)
             addOrderRecord(newRecord)
         }
     }

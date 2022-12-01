@@ -1,10 +1,12 @@
 package com.example.orderlite.domain.orderRecord
 
 data class OrderRecord(
-    val id:Int,
+    val orderRecordId:Int,
     val orderId:Int,
     val productId:Int,
     val unitId:Int,
-    var price:Double,
+    var price:Int,
     var amount:Double
-)
+){
+    var sum = (amount*price).toInt()
+}

@@ -17,9 +17,14 @@ class OrderBodyRVListAdapter : ListAdapter
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderBodyRVViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
+        val layout = when(viewType){
+            1 -> R.layout.order_body_item
+            2 -> R.layout.order_body_item_chnged
+            else -> throw RuntimeException("Unknown viewType")
+        }
         return OrderBodyRVViewHolder(
             layoutInflater.inflate(
-                R.layout.order_body_item,
+                layout,
                 parent,
                 false
             )
@@ -33,7 +38,7 @@ class OrderBodyRVListAdapter : ListAdapter
             tvOIUnitOM.text = item.unitOMItem.shortName
             etOIAmount.setText(item.orderRecord.amount.toString())
             etOIPrice.setText(item.orderRecord.price.toString())
-            tvOISum.text = (item.orderRecord.amount * item.orderRecord.price).toString()
+            tvOISum.text = item.orderRecord.sum.toString()
         }
         holder.itemView.setOnLongClickListener {
             onItemLongClickListener?.invoke(item)
@@ -54,7 +59,8 @@ class OrderBodyRVListAdapter : ListAdapter
     }
 
     override fun getItemViewType(position: Int): Int {
-        return super.getItemViewType(position)
+        val item = getItem(position)
+        return if (item.orderRecord.price==0) 1 else 2
 
     }
 }

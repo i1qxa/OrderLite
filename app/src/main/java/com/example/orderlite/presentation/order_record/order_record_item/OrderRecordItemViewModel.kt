@@ -63,7 +63,7 @@ class OrderRecordItemViewModel(application: Application) : AndroidViewModel(appl
         if (parseParams()) {
             orderRecordItem =
                 OrderRecord(0, orderId!!, productItem.value!!.id, unitOMItem.value!!.id,
-                    0.0, orderAmount!!)
+                    0, orderAmount!!)
         }
     }
 

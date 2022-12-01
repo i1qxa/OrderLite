@@ -72,7 +72,7 @@ class ListProductsViewModel(application: Application) : AndroidViewModel(applica
 
     private fun prepareOrderRecord(): OrderRecord {
         if (validateParams()) {
-            return OrderRecord(0, orderId!!, productItemId!!, unitOMId!!, 0.0, orderRecordAmount)
+            return OrderRecord(0, orderId!!, productItemId!!, unitOMId!!, 0, orderRecordAmount)
         } else throw RuntimeException("One or many params for new OrderRecord = null")
     }
 

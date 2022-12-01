@@ -11,4 +11,6 @@ interface OrderRepository {
     suspend fun getOrder(id:Int):Order
 
     suspend fun deleteOrderRecordsWithOrder(id:Int)
+
+    suspend fun getLastOrder():Order
 }

@@ -23,7 +23,7 @@ class OrderBodyViewModel(application: Application) : AndroidViewModel(applicatio
         }
 
     fun changeOrderRecordAmount(record: OrderRecord, amountStr: String) {
-        val amount = amountStr.toDouble()
+        val amount = if (amountStr.isNotEmpty()) amountStr.toDouble() else 0.0
         if (amount != record.amount) {
             val newOrderRecord = record.copy()
             newOrderRecord.amount = amount
@@ -34,7 +34,7 @@ class OrderBodyViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
     fun changeOrderRecordPrice(record: OrderRecord, priceStr: String) {
-        val price = priceStr.toDouble()
+        val price = if (priceStr.isNotEmpty()) priceStr.toInt() else 0
         if (price != record.price) {
             val newOrderRecord = record.copy()
             newOrderRecord.price = price

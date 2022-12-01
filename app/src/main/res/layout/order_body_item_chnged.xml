@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/MyCardView">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MyCardView"
+    app:cardBackgroundColor="#BFBABA">
 
     <LinearLayout
         style="@style/MyRVItem"
@@ -11,43 +13,42 @@
             style="@style/MyText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/head_rv_name"
-            android:layout_weight="5" />
+            android:layout_weight="5"
+            android:text="@string/head_rv_name" />
 
         <EditText
             android:id="@+id/etOIAmount"
             style="@style/MyText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="2"
             android:inputType="none|numberSigned|number|numberDecimal"
-            android:text="0.0"
-            android:layout_weight="2" />
+            android:text="0.0" />
 
         <TextView
             android:id="@+id/tvOIUnitOM"
             style="@style/MyText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/head_rv_unit_o_m"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:text="@string/head_rv_unit_o_m" />
 
         <EditText
             android:id="@+id/etOIPrice"
             style="@style/MyText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:inputType="none|numberSigned|number|numberDecimal"
-            android:text="0"
             android:layout_weight="2"
-            />
+            android:inputType="none|numberSigned|number|numberDecimal"
+            android:text="0" />
 
         <TextView
             android:id="@+id/tvOISum"
             style="@style/MyText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/head_rv_sum"
-            android:layout_weight="2" />
+            android:layout_weight="2"
+            android:text="@string/head_rv_sum" />
     </LinearLayout>
 
 

@@ -86,6 +86,12 @@ class ListOrderFragment : Fragment() {
         viewModel.orderList.observe(viewLifecycleOwner) {
             rvAdapter.submitList(it)
         }
+        viewModel.newOrderId.observe(viewLifecycleOwner){
+            if (it!=null) {
+                launchOrderBodyFragment(OrderBodyFragment.newInstance(it))
+                viewModel.clearNewOrderId()
+            }
+        }
     }
 
     private fun launchOrderBodyFragment(fragment: OrderBodyFragment) {

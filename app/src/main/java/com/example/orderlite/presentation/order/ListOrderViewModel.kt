@@ -16,7 +16,11 @@ class ListOrderViewModel(application: Application) : AndroidViewModel(applicatio
     private val getListOrderUseCase = GetOrderListUseCase(repository)
     private val addOrderUseCase = AddOrderUseCase(repository)
     private val deleteOrderRecordsWithOrderUseCas = DeleteOrderRecordsWithOrderUseCase(repository)
+    private val getLastOrderUseCase = GetLastOrderUseCase(repository)
     val orderList = getListOrderUseCase.getOrderList()
+    private val _newOrderId = MutableLiveData<Int?>()
+    val newOrderId:MutableLiveData<Int?>
+    get() = _newOrderId
 
     fun addOrder() {
         val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
@@ -24,6 +28,7 @@ class ListOrderViewModel(application: Application) : AndroidViewModel(applicatio
         val newOrder = Order(0, currentDate)
         viewModelScope.launch {
             addOrderUseCase.addOrder(newOrder)
+            _newOrderId.value = getLastOrderUseCase.getLastOrder().id
         }
     }
 
@@ -31,6 +36,10 @@ class ListOrderViewModel(application: Application) : AndroidViewModel(applicatio
         viewModelScope.launch {
             deleteOrderRecordsWithOrderUseCas.deleteOrderRecordsWithOrder(orderId)
         }
+    }
+
+    fun clearNewOrderId(){
+        _newOrderId.value = null
     }
 
 }

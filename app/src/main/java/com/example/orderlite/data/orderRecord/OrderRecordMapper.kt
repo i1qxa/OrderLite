@@ -12,7 +12,7 @@ class OrderRecordMapper {
 
     fun mapOrderRecordToDB(orderRecord: OrderRecord):OrderRecordDbModel{
         return OrderRecordDbModel(
-            orderRecordId = orderRecord.id,
+            orderRecordId = orderRecord.orderRecordId,
             orderId =  orderRecord.orderId,
             productId = orderRecord.productId,
             unitId = orderRecord.unitId,
@@ -22,7 +22,7 @@ class OrderRecordMapper {
     }
     fun mapDBToOrderRecord(orderRecordDbModel: OrderRecordDbModel):OrderRecord{
         return OrderRecord(
-            id = orderRecordDbModel.orderRecordId,
+            orderRecordId = orderRecordDbModel.orderRecordId,
             orderId =  orderRecordDbModel.orderId,
             productId = orderRecordDbModel.productId,
             unitId = orderRecordDbModel.unitId,
