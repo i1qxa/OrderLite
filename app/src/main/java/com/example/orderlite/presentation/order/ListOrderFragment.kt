@@ -19,6 +19,15 @@ import com.example.orderlite.presentation.product.list_product_items.MODE_MULTI_
 import com.example.orderlite.presentation.product.list_product_items.ORDER_ID
 import com.example.orderlite.presentation.units_o_m.unit_o_m.SCREEN_MODE
 
+//fun Fragment.launchNewFragment(fragment:Fragment) = run {
+//    parentFragmentManager.apply {
+//        beginTransaction()
+//            .replace(R.id.mainContainerView, fragment)
+//            .addToBackStack(null)
+//            .commit()
+//    }
+//}
+
 class ListOrderFragment : Fragment() {
 
     private var screenMode: String? = null
@@ -90,6 +99,8 @@ class ListOrderFragment : Fragment() {
             if (it!=null) {
                 launchOrderBodyFragment(OrderBodyFragment.newInstance(it))
                 viewModel.clearNewOrderId()
+                TODO("Сделать рефакторинг используя расширение для класса Фрагмент")
+                //this.launchNewFragment(OrderBodyFragment.newInstance(it))
             }
         }
     }
