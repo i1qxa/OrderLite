@@ -48,6 +48,7 @@
             android:layout_height="wrap_content"
             android:text="@string/head_rv_sum"
             android:layout_weight="2" />
+
     </LinearLayout>
 
 

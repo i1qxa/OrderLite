@@ -11,7 +11,6 @@ import com.example.orderlite.domain.orderRecord.OrderRecordWithProductItemAndUni
 class OrderBodyRVListAdapter : ListAdapter
 <OrderRecordWithProductItemAndUnitOMItem, OrderBodyRVViewHolder>
     (OrderBodyRVDiffCallBack()) {
-    var onItemLongClickListener: ((OrderRecordWithProductItemAndUnitOMItem) -> Unit)? = null
     var onAmountChangeFinished: ((OrderRecord, amountStr: String) -> Unit)? = null
     var onPriceChangeFinished: ((OrderRecord, priceStr:String) -> Unit)? = null
 
@@ -19,7 +18,7 @@ class OrderBodyRVListAdapter : ListAdapter
         val layoutInflater = LayoutInflater.from(parent.context)
         val layout = when(viewType){
             EMPTY_PRICE -> R.layout.order_body_item
-            CHANGED_PRICE -> R.layout.order_body_item_chnged
+            CHANGED_PRICE -> R.layout.order_body_item_changed
             else -> throw RuntimeException("Unknown viewType")
         }
         return OrderBodyRVViewHolder(
@@ -39,10 +38,6 @@ class OrderBodyRVListAdapter : ListAdapter
             etOIAmount.setText(item.orderRecord.amount.toString())
             etOIPrice.setText(item.orderRecord.price.toString())
             tvOISum.text = item.orderRecord.sum.toString()
-        }
-        holder.itemView.setOnLongClickListener {
-            onItemLongClickListener?.invoke(item)
-            true
         }
         holder.etOIAmount.setOnFocusChangeListener { v, hasFocus ->
             val amountStr = v.findViewById<EditText>(R.id.etOIAmount).text.toString()
