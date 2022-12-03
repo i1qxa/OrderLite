@@ -1,4 +1,4 @@
-package com.example.orderlite.presentation.order_record.order_record_item
+package com.example.orderlite.presentation.order_record.order_body_list
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -49,14 +49,14 @@ class DialogChoseAmount : DialogFragment() {
                 bundleOf(KEY_AMOUNT_RESPONSE to binding.etAmount.text.toString())
             )
             parentFragmentManager.popBackStack()
-            dismissNow()
+            dismiss()
         }
     }
 
     private fun setupBtnCancelClickListener() {
         btnCancel.setOnClickListener {
             parentFragmentManager.popBackStack()
-            dismissNow()
+            dismiss()
         }
     }
 
@@ -67,7 +67,6 @@ class DialogChoseAmount : DialogFragment() {
         tvProductName.text = productName
         tvUnitOMName = binding.tvUnitOMName
         tvUnitOMName.text = unitOMName
-
     }
 
     private fun parseParams() {

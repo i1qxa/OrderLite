@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.orderlite.R
 import com.example.orderlite.databinding.FragmentListUnitsOMBinding
 import com.example.orderlite.presentation.FragmentNameInstaller
+import com.example.orderlite.presentation.order.launchNewFragment
 import com.example.orderlite.presentation.units_o_m.unit_o_m.MODE_ADD
 import com.example.orderlite.presentation.units_o_m.unit_o_m.UnitOMFragment
 
@@ -54,27 +55,16 @@ class ListUnitsOMFragment : Fragment() {
                 RecyclerView.VERTICAL,
                 false
             )
-
         }
         rvAdapter.onUnitOMClickListener = {
-            launchUnitOMFragment(UnitOMFragment.newInstanceEditItem(it.id))
-        }
-
-    }
-
-    private fun launchUnitOMFragment(fragment: UnitOMFragment) {
-        parentFragmentManager.apply {
-            beginTransaction()
-                .replace(R.id.mainContainerView, fragment)
-                .addToBackStack(null)
-                .commit()
+            this.launchNewFragment(UnitOMFragment.newInstanceEditItem(it.id))
         }
 
     }
 
     private fun setupOnClickListener(){
         binding.fabAddUnitOM.setOnClickListener {
-            launchUnitOMFragment(UnitOMFragment.newInstanceAddItem(MODE_ADD))
+            this.launchNewFragment(UnitOMFragment.newInstanceAddItem(MODE_ADD))
         }
     }
 

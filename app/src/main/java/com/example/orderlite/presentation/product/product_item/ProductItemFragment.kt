@@ -37,7 +37,6 @@ class ProductItemFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,7 +86,6 @@ class ProductItemFragment : Fragment(), AdapterView.OnItemSelectedListener {
                     count: Int,
                     after: Int,
                 ) {
-
                 }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -95,11 +93,9 @@ class ProductItemFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 }
 
                 override fun afterTextChanged(s: Editable?) {
-
                 }
             }
             )
-
     }
 
     private fun launchRightMode() {
@@ -111,7 +107,6 @@ class ProductItemFragment : Fragment(), AdapterView.OnItemSelectedListener {
         binding.btnSaveProduct.setOnClickListener {
             viewModel.addProductItem(binding.etProductName.text.toString(), defaultUnitOMId)
         }
-
     }
 
     private fun setupSpinner() {
@@ -121,11 +116,9 @@ class ProductItemFragment : Fragment(), AdapterView.OnItemSelectedListener {
             spinner.adapter = spinnerAdapter
             spinner.onItemSelectedListener = this
             viewModel.productItem.observe(viewLifecycleOwner){ productWithUnitOM ->
-                //val defaultSpinnerPosition = findUnitOMPositionInSpinner(spinner.count,productWithUnitOM.unitOMItem)
                 val defaultSpinnerPosition = spinnerAdapter.getPosition(productWithUnitOM.unitOMItem)
                 spinner.setSelection(defaultSpinnerPosition)
             }
-
         }
     }
 
@@ -133,7 +126,6 @@ class ProductItemFragment : Fragment(), AdapterView.OnItemSelectedListener {
         viewModel.getProductItem(productId)
         viewModel.productItem.observe(viewLifecycleOwner){
             binding.etProductName.setText(it.productItem.name)
-
         }
         binding.btnDeleteProduct.visibility = View.VISIBLE
         binding.btnDeleteProduct.setOnClickListener {
@@ -145,14 +137,6 @@ class ProductItemFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 binding.etProductName.text.toString())
         }
     }
-
-//    private fun findUnitOMPositionInSpinner(spinnerSize:Int, defaultUnitOM:UnitsOfMItem):Int{
-//        var ans = 0
-//        for (i in 0 until spinnerSize){
-//            if (spinner.adapter.getItem(i)==defaultUnitOM) ans = i
-//        }
-//        return ans
-//    }
 
     private fun parseParams() {
         val args = requireArguments()

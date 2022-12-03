@@ -18,8 +18,8 @@ class OrderBodyRVListAdapter : ListAdapter
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderBodyRVViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val layout = when(viewType){
-            1 -> R.layout.order_body_item
-            2 -> R.layout.order_body_item_chnged
+            EMPTY_PRICE -> R.layout.order_body_item
+            CHANGED_PRICE -> R.layout.order_body_item_chnged
             else -> throw RuntimeException("Unknown viewType")
         }
         return OrderBodyRVViewHolder(
@@ -60,7 +60,11 @@ class OrderBodyRVListAdapter : ListAdapter
 
     override fun getItemViewType(position: Int): Int {
         val item = getItem(position)
-        return if (item.orderRecord.price==0) 1 else 2
+        return if (item.orderRecord.price==0) EMPTY_PRICE else CHANGED_PRICE
+    }
 
+    companion object{
+        const val EMPTY_PRICE = 1
+        const val CHANGED_PRICE = 2
     }
 }

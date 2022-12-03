@@ -1,13 +1,10 @@
 package com.example.orderlite.presentation.order_record.order_body_list
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,6 +13,7 @@ import com.example.orderlite.databinding.FragmentOrderBodyBinding
 import com.example.orderlite.domain.orderRecord.OrderRecord
 import com.example.orderlite.presentation.FragmentNameInstaller
 import com.example.orderlite.presentation.order.ListOrderFragment
+import com.example.orderlite.presentation.order.launchNewFragment
 import com.example.orderlite.presentation.product.list_product_items.ListProductsFragment
 import com.example.orderlite.presentation.product.list_product_items.MODE_MULTI_CHOOSE
 import com.example.orderlite.presentation.product.list_product_items.ORDER_ID
@@ -87,10 +85,8 @@ class OrderBodyFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        viewModel.orderRecordList.observe(viewLifecycleOwner) {
-            val sortedList = it.sortedBy { it ->
-                it.productItem.name
-            }
+        viewModel.orderRecordList.observe(viewLifecycleOwner) { listRecords ->
+            val sortedList = listRecords.sortedBy {it.productItem.name}
             rvAdapter.submitList(sortedList)
         }
     }
@@ -98,28 +94,10 @@ class OrderBodyFragment : Fragment() {
     private fun setupFabClickListener() {
         binding.btnChooseProducts.setOnClickListener {
             val fragment = ListProductsFragment.newInstance(MODE_MULTI_CHOOSE, orderId)
-            launchProductListFragment(fragment)
+            this.launchNewFragment(fragment)
         }
         binding.btnAddOrderBody.setOnClickListener {
-            launchOrderListFragment(ListOrderFragment.newInstance(MODE_MULTI_CHOOSE))
-        }
-    }
-
-    private fun launchOrderListFragment(fragment: ListOrderFragment) {
-        parentFragmentManager.apply {
-            beginTransaction()
-                .replace(R.id.mainContainerView, fragment)
-                .addToBackStack(null)
-                .commit()
-        }
-    }
-
-    private fun launchProductListFragment(fragment: ListProductsFragment) {
-        parentFragmentManager.apply {
-            beginTransaction()
-                .replace(R.id.mainContainerView, fragment)
-                .addToBackStack(null)
-                .commit()
+            this.launchNewFragment(ListOrderFragment.newInstance(MODE_MULTI_CHOOSE))
         }
     }
 

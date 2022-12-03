@@ -6,7 +6,6 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.orderlite.R
@@ -54,7 +53,6 @@ class UnitOMFragment : Fragment() {
         setTextChangeListeners()
         observeViewModel()
         observeErrorInput()
-
     }
 
     private fun observeViewModel() {
@@ -79,7 +77,6 @@ class UnitOMFragment : Fragment() {
             MODE_ADD -> launchAddMode()
             MODE_EDIT -> launchEditMode()
         }
-
     }
 
     private fun launchAddMode() {
@@ -100,7 +97,6 @@ class UnitOMFragment : Fragment() {
         binding.etName.addTextChangedListener (
             object : TextWatcher {
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
                 }
 
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -108,14 +104,12 @@ class UnitOMFragment : Fragment() {
                 }
 
                 override fun afterTextChanged(p0: Editable?) {
-
                 }
             }
             )
         binding.etShortName.addTextChangedListener (
             object : TextWatcher {
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
                 }
 
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -123,7 +117,6 @@ class UnitOMFragment : Fragment() {
                 }
 
                 override fun afterTextChanged(p0: Editable?) {
-
                 }
             }
             )

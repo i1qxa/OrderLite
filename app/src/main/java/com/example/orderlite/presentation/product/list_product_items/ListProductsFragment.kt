@@ -11,7 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.orderlite.R
 import com.example.orderlite.databinding.FragmentListProductsBinding
 import com.example.orderlite.presentation.FragmentNameInstaller
-import com.example.orderlite.presentation.order_record.order_record_item.DialogChoseAmount
+import com.example.orderlite.presentation.order.launchNewFragment
+import com.example.orderlite.presentation.order_record.order_body_list.DialogChoseAmount
 import com.example.orderlite.presentation.product.product_item.ProductItemFragment
 import com.example.orderlite.presentation.units_o_m.unit_o_m.MODE_ADD
 import com.example.orderlite.presentation.units_o_m.unit_o_m.MODE_EDIT
@@ -79,7 +80,7 @@ class ListProductsFragment : Fragment() {
         }
         rvAdapter.productItemClickListener = { productItem ->
             if (screenMode == MODE_LIST_VIEW) {
-                launchProductItemFragment(ProductItemFragment.newInstance(MODE_EDIT,
+                this.launchNewFragment(ProductItemFragment.newInstance(MODE_EDIT,
                     productItem.id))
             } else {
                 with(viewModel) {
@@ -97,16 +98,7 @@ class ListProductsFragment : Fragment() {
 
     private fun setupAddBtnOnClickListener() {
         binding.fabAddProductItem.setOnClickListener {
-            launchProductItemFragment(ProductItemFragment.newInstance(MODE_ADD, 0))
-        }
-    }
-
-    private fun launchProductItemFragment(fragment: ProductItemFragment) {
-        parentFragmentManager.apply {
-            beginTransaction()
-                .replace(R.id.mainContainerView, fragment)
-                .addToBackStack(null)
-                .commit()
+            this.launchNewFragment(ProductItemFragment.newInstance(MODE_ADD, 0))
         }
     }
 

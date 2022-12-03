@@ -19,14 +19,14 @@ import com.example.orderlite.presentation.product.list_product_items.MODE_MULTI_
 import com.example.orderlite.presentation.product.list_product_items.ORDER_ID
 import com.example.orderlite.presentation.units_o_m.unit_o_m.SCREEN_MODE
 
-//fun Fragment.launchNewFragment(fragment:Fragment) = run {
-//    parentFragmentManager.apply {
-//        beginTransaction()
-//            .replace(R.id.mainContainerView, fragment)
-//            .addToBackStack(null)
-//            .commit()
-//    }
-//}
+fun Fragment.launchNewFragment(fragment:Fragment) = run {
+    parentFragmentManager.apply {
+        beginTransaction()
+            .replace(R.id.mainContainerView, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+}
 
 class ListOrderFragment : Fragment() {
 
@@ -76,7 +76,7 @@ class ListOrderFragment : Fragment() {
             )
         }
         rvAdapter.orderItemClickListener = {
-            if (screenMode == MODE_LIST_VIEW) launchOrderBodyFragment(OrderBodyFragment.newInstance(
+            if (screenMode == MODE_LIST_VIEW) this.launchNewFragment(OrderBodyFragment.newInstance(
                 it.id))
             else {
                 parentFragmentManager.setFragmentResult(
@@ -97,20 +97,9 @@ class ListOrderFragment : Fragment() {
         }
         viewModel.newOrderId.observe(viewLifecycleOwner){
             if (it!=null) {
-                launchOrderBodyFragment(OrderBodyFragment.newInstance(it))
                 viewModel.clearNewOrderId()
-                TODO("Сделать рефакторинг используя расширение для класса Фрагмент")
-                //this.launchNewFragment(OrderBodyFragment.newInstance(it))
+                this.launchNewFragment(OrderBodyFragment.newInstance(it))
             }
-        }
-    }
-
-    private fun launchOrderBodyFragment(fragment: OrderBodyFragment) {
-        parentFragmentManager.apply {
-            beginTransaction()
-                .replace(R.id.mainContainerView, fragment)
-                .addToBackStack(null)
-                .commit()
         }
     }
 
