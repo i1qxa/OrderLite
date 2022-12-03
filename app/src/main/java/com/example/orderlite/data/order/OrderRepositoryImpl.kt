@@ -6,15 +6,14 @@ import androidx.lifecycle.Transformations
 import com.example.orderlite.data.AppDatabase
 import com.example.orderlite.domain.order.Order
 import com.example.orderlite.domain.order.OrderRepository
-import kotlinx.coroutines.flow.Flow
 
 class OrderRepositoryImpl(application: Application):OrderRepository {
 
     private val orderDBModelDao = AppDatabase.getInstance(application).orderDbModelDao()
     private val mapper = OrderMapper()
 
-    override fun getOrderList(dateStart: String, dateEnd: String): LiveData<List<Order>> =
-        Transformations.map(orderDBModelDao.getOrderList(dateStart,dateEnd)){
+    override fun getOrderList(): LiveData<List<Order>> =
+        Transformations.map(orderDBModelDao.getOrderList()){
             mapper.mapListOrderDBModelTOListOrder(it)
         }
 
@@ -22,4 +21,15 @@ class OrderRepositoryImpl(application: Application):OrderRepository {
         orderDBModelDao.addOrder(mapper.mapOrderToDBModel(order))
     }
 
+    override suspend fun getOrder(id:Int): Order {
+        return mapper.mapDBModelToOrder(orderDBModelDao.getOrder(id))
+    }
+
+    override suspend fun getLastOrder(): Order {
+        return mapper.mapDBModelToOrder(orderDBModelDao.getLastOrder())
+    }
+
+    override suspend fun deleteOrderRecordsWithOrder(id: Int) {
+        orderDBModelDao.deleteOrderRecordsWithOrder(id)
+    }
 }

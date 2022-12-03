@@ -11,13 +11,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.orderlite.R
 import com.example.orderlite.databinding.FragmentListUnitsOMBinding
+import com.example.orderlite.presentation.FragmentNameInstaller
+import com.example.orderlite.presentation.order.launchNewFragment
 import com.example.orderlite.presentation.units_o_m.unit_o_m.MODE_ADD
 import com.example.orderlite.presentation.units_o_m.unit_o_m.UnitOMFragment
 
-
 class ListUnitsOMFragment : Fragment() {
 
-
+    private lateinit var fragmentNameInstaller:FragmentNameInstaller
     private lateinit var viewModel: ListUnitsOMViewModel
     private lateinit var rvAdapter: UnitOMRVListAdapter
     private var _binding: FragmentListUnitsOMBinding? = null
@@ -39,10 +40,10 @@ class ListUnitsOMFragment : Fragment() {
         setupRecyclerView(view.context)
         viewModel.listUnitsOM.observe(viewLifecycleOwner) {
             rvAdapter.submitList(it)
-
         }
-        setupFabOnClickListener()
-
+        fragmentNameInstaller=FragmentNameInstaller
+        fragmentNameInstaller.setName(R.string.unit_o_m_list)
+        setupOnClickListener()
     }
 
     private fun setupRecyclerView(context: Context) {
@@ -54,29 +55,17 @@ class ListUnitsOMFragment : Fragment() {
                 RecyclerView.VERTICAL,
                 false
             )
-
         }
         rvAdapter.onUnitOMClickListener = {
-            launchUnitOMFragment(UnitOMFragment.newInstanceEditItem(it.id))
+            this.launchNewFragment(UnitOMFragment.newInstanceEditItem(it.id))
         }
 
     }
 
-    private fun setupFabOnClickListener() {
-        binding.fabCreateUnitOM.setOnClickListener {
-            launchUnitOMFragment(UnitOMFragment.newInstanceAddItem(MODE_ADD))
+    private fun setupOnClickListener(){
+        binding.fabAddUnitOM.setOnClickListener {
+            this.launchNewFragment(UnitOMFragment.newInstanceAddItem(MODE_ADD))
         }
-    }
-
-    private fun launchUnitOMFragment(fragment: UnitOMFragment) {
-        parentFragmentManager.apply {
-            popBackStack()
-            beginTransaction()
-                .replace(R.id.mainContainerView, fragment)
-                .addToBackStack(null)
-                .commit()
-        }
-
     }
 
     override fun onDestroyView() {

@@ -6,16 +6,17 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.orderlite.R
 import com.example.orderlite.databinding.FragmentUnitOMBinding
+import com.example.orderlite.presentation.FragmentNameInstaller
 
 
 const val SCREEN_MODE = "extra_mode"
 const val MODE_ADD = "mode_add"
 const val MODE_EDIT = "mode_edit"
-const val UNIT_O_M_ID = "unit_o_m_id"
+const val ITEM_ID = "item_id"
 const val DEFAULT_ID: Int = 0
 
 class UnitOMFragment : Fragment() {
@@ -23,6 +24,7 @@ class UnitOMFragment : Fragment() {
     private var unitOMId: Int = DEFAULT_ID
 
     private lateinit var viewModel: UnitOMViewModel
+    private lateinit var fragmentNameInstaller:FragmentNameInstaller
 
     private lateinit var _binding: FragmentUnitOMBinding
     private val binding
@@ -45,28 +47,27 @@ class UnitOMFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[UnitOMViewModel::class.java]
+        fragmentNameInstaller = FragmentNameInstaller
+        fragmentNameInstaller.setName(R.string.unit_o_m_item)
         launchRightMode()
         setTextChangeListeners()
         observeViewModel()
         observeErrorInput()
-
     }
 
     private fun observeViewModel() {
         viewModel.shouldCloseScreen.observe(viewLifecycleOwner) {
             parentFragmentManager.popBackStack()
         }
-
-
     }
 
     private fun observeErrorInput() {
         viewModel.errorInputName.observe(viewLifecycleOwner) {
-            if (it) binding.tilName.error = "Name is empty!"
+            if (it) binding.tilName.error = R.string.error_input_name.toString()
             else binding.tilName.error = null
         }
         viewModel.errorInputShortName.observe(viewLifecycleOwner) {
-            if (it) binding.tilShortName.error = "Short name is empty!"
+            if (it) binding.tilShortName.error = R.string.error_input_short_name.toString()
             else binding.tilShortName.error = null
         }
     }
@@ -76,7 +77,6 @@ class UnitOMFragment : Fragment() {
             MODE_ADD -> launchAddMode()
             MODE_EDIT -> launchEditMode()
         }
-
     }
 
     private fun launchAddMode() {
@@ -94,10 +94,9 @@ class UnitOMFragment : Fragment() {
     }
 
     private fun setTextChangeListeners() {
-        binding.etName.addTextChangedListener {
+        binding.etName.addTextChangedListener (
             object : TextWatcher {
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
                 }
 
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -105,14 +104,12 @@ class UnitOMFragment : Fragment() {
                 }
 
                 override fun afterTextChanged(p0: Editable?) {
-
                 }
             }
-        }
-        binding.etShortName.addTextChangedListener {
+            )
+        binding.etShortName.addTextChangedListener (
             object : TextWatcher {
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
                 }
 
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -120,10 +117,9 @@ class UnitOMFragment : Fragment() {
                 }
 
                 override fun afterTextChanged(p0: Editable?) {
-
                 }
             }
-        }
+            )
     }
 
     private fun setEditClickListeners() {
@@ -151,13 +147,13 @@ class UnitOMFragment : Fragment() {
         if (!args.containsKey(SCREEN_MODE)) {
             throw RuntimeException("Param Screen Mode is absent")
         }
-        if (args.get(SCREEN_MODE) != MODE_ADD && args.get(SCREEN_MODE) != MODE_EDIT) {
+        if (args.getString(SCREEN_MODE) != MODE_ADD && args.getString(SCREEN_MODE) != MODE_EDIT) {
             throw RuntimeException("Unknown Screen Mode")
         }
         screenMode = args.getString(SCREEN_MODE)
         if (screenMode == MODE_EDIT) {
-            if (!args.containsKey(UNIT_O_M_ID)) throw RuntimeException("UnitOMId is absent")
-            else unitOMId = args.getInt(UNIT_O_M_ID)
+            if (!args.containsKey(ITEM_ID)) throw RuntimeException("UnitOMId is absent")
+            else unitOMId = args.getInt(ITEM_ID)
         }
     }
 
@@ -167,7 +163,7 @@ class UnitOMFragment : Fragment() {
             UnitOMFragment().apply {
                 arguments = Bundle().apply {
                     putString(SCREEN_MODE, MODE_EDIT)
-                    putInt(UNIT_O_M_ID, unitOMId)
+                    putInt(ITEM_ID, unitOMId)
                 }
             }
 

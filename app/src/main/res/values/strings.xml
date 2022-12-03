@@ -6,7 +6,14 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-
+    <string name="error_input_name">Name is empty!</string>
+    <string name="error_input_short_name">Short name is empty!</string>
+    <string name="order">Order</string>
+    <string name="product_list">List Product Item</string>
+    <string name="product_item">Product Item</string>
+    <string name="choose_product_items">List choose Product Items</string>
+    <string name="unit_o_m_list">List Unit om</string>
+    <string name="unit_o_m_item">Unit om Item</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="units_of_measurement">Units of Measurement</string>
@@ -15,4 +22,17 @@
     <string name="enter_short_name">Enter short name</string>
     <string name="btn_save">Save</string>
     <string name="btn_delete">Delete</string>
+    <string name="product_name">Product Name</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="et_name_price">Price</string>
+    <string name="enter_price_of_product">Enter price of product</string>
+    <string name="product_item_name">Product item name</string>
+    <string name="enter_amount">Enter Amount</string>
+    <string name="btnAdd">Add</string>
+    <string name="head_number_in_order">№</string>
+    <string name="head_rv_name">Name</string>
+    <string name="head_rv_unit_o_m">UnitOM</string>
+    <string name="head_rv_sum">Sum</string>
+    <string name="btn_add_order_text">Add Order</string>
+    <string name="btn_add_product_text">Add Product</string>
 </resources>

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import kotlinx.coroutines.flow.Flow
 
 class GetOrderListUseCase(private val orderRepository: OrderRepository) {
-    fun getOrderList(dateStart:String, dateEnd:String):LiveData<List<Order>>{
-        return orderRepository.getOrderList(dateStart,dateEnd)
+    fun getOrderList():LiveData<List<Order>>{
+        return orderRepository.getOrderList()
     }
 }

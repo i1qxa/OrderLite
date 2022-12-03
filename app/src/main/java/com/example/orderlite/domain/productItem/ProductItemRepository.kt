@@ -7,9 +7,13 @@ interface ProductItemRepository {
 
     suspend fun deleteProductItem(productItemId:Int)
 
-    suspend fun editProductItemUseCase(productItem: ProductItem)
+    suspend fun editProductItem(productItem: ProductItem)
 
     fun getProductItemList():LiveData<List<ProductItem>>
 
     suspend fun getProductItem(productItemId:Int):ProductItem
+
+    suspend fun getProductItemWithUnitOM(productItemId: Int):ProductItemWithUnitOMItem
+
+    fun getListProductItemWithUnitOMItem(listProductItemId:List<Int>):LiveData<List<ProductItemWithUnitOMItem>>
 }

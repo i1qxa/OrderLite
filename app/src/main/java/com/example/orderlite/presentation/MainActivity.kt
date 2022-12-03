@@ -1,17 +1,17 @@
 package com.example.orderlite.presentation
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.WindowCompat
-import androidx.navigation.ui.AppBarConfiguration
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleOwner
 import com.example.orderlite.R
 import com.example.orderlite.databinding.ActivityMainBinding
+import com.example.orderlite.presentation.order.ListOrderFragment
+import com.example.orderlite.presentation.product.list_product_items.ListProductsFragment
+import com.example.orderlite.presentation.product.list_product_items.MODE_LIST_VIEW
 import com.example.orderlite.presentation.units_o_m.list_units_o_m.ListUnitsOMFragment
-import com.example.orderlite.presentation.product.ListGoodsFragment
 import com.google.android.material.appbar.MaterialToolbar
 
 class MainActivity : AppCompatActivity() {
@@ -25,14 +25,20 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        launchNewFragment(ListOrderFragment.newInstance(MODE_LIST_VIEW))
 
         materialToolBar = binding.mainToolBar
         setSupportActionBar(materialToolBar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
+        observeFragmentName()
 
     }
 
-
+    private fun observeFragmentName(){
+        FragmentNameInstaller.currentFragmentName.observe(this){
+            binding.fragmentName.text = getString(it)
+        }
+    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
@@ -42,7 +48,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_goods -> {
-                launchNewFragment(ListGoodsFragment.newInstance())
+                launchNewFragment(ListProductsFragment.newInstance(MODE_LIST_VIEW,-1))
                 true
             }
             R.id.action_units_of_measurement ->{
@@ -50,15 +56,15 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.action_order_list ->{
-                launchNewFragment(ListGoodsFragment.newInstance())
+                launchNewFragment(ListOrderFragment.newInstance(MODE_LIST_VIEW))
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
     }
+
     private fun launchNewFragment(fragment: Fragment){
         supportFragmentManager.apply {
-            popBackStack()
             beginTransaction()
                 .replace(R.id.mainContainerView,fragment)
                 .addToBackStack(null)

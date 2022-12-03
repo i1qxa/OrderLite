@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="MyCardView" parent="@style/CardView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+    </style>
+    <style name="MyText" parent="@style/Widget.AppCompat.TextView">
+        <item name="android:textSize">20sp</item>
+    </style>
+    <style name="MyRVItem" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="backgroundColor">@color/background_color_rv_item</item>
+    </style>
+</resources>

@@ -5,16 +5,19 @@
     <item
         android:id="@+id/action_goods"
         android:orderInCategory="100"
+        android:menuCategory = "secondary"
         android:title="@string/action_goods"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_units_of_measurement"
         android:orderInCategory="100"
+        android:menuCategory = "secondary"
         android:title="@string/units_of_measurement"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_order_list"
         android:orderInCategory="100"
+        android:menuCategory = "secondary"
         android:title="@string/order_list"
         app:showAsAction="never" />
 
