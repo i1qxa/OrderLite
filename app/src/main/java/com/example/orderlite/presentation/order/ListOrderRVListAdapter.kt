@@ -5,11 +5,10 @@ import android.view.ViewGroup
 import com.example.orderlite.R
 import com.example.orderlite.domain.order.Order
 
-class ListOrderRVListAdapter:androidx.recyclerview.widget.ListAdapter
-<Order,ListOrderViewHolder>(ListOrderDiffCallBack()) {
+class ListOrderRVListAdapter : androidx.recyclerview.widget.ListAdapter
+<Order, ListOrderViewHolder>(ListOrderDiffCallBack()) {
 
-    var orderItemClickListener: ((Order) -> Unit)?=null
-    var orderItemLongClickListener: ((Order) -> Unit)?=null
+    var orderItemClickListener: ((Order) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListOrderViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -24,15 +23,11 @@ class ListOrderRVListAdapter:androidx.recyclerview.widget.ListAdapter
 
     override fun onBindViewHolder(holder: ListOrderViewHolder, position: Int) {
         val orderItem = getItem(position)
-        with(holder){
+        with(holder) {
             tvOrderId.text = orderItem.id.toString()
             tvOrderDate.text = orderItem.date
             itemView.setOnClickListener {
                 orderItemClickListener?.invoke(orderItem)
-            }
-            itemView.setOnLongClickListener{
-                orderItemLongClickListener?.invoke(orderItem)
-                true
             }
         }
 

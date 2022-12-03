@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.orderlite.R
@@ -69,19 +70,37 @@ class OrderBodyFragment : Fragment() {
                 false
             )
         }
+        setupItemSwipeListener(binding.rvListProductItems)
     }
 
     private fun setupRvAdapter() {
         rvAdapter = OrderBodyRVListAdapter()
-        rvAdapter.onItemLongClickListener = {
-            viewModel.deleteOrderRecord(it.orderRecord.orderId, it.orderRecord.productId)
-        }
         rvAdapter.onAmountChangeFinished = { record: OrderRecord, amountString: String ->
             viewModel.changeOrderRecordAmount(record, amountString)
         }
         rvAdapter.onPriceChangeFinished = { record: OrderRecord, priceStr: String ->
             viewModel.changeOrderRecordPrice(record, priceStr)
         }
+    }
+
+    private fun setupItemSwipeListener(rvOrderBodyList: RecyclerView){
+        val callBack = object :
+        ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT){
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder,
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val item = rvAdapter.currentList[viewHolder.adapterPosition]
+                viewModel.deleteOrderRecord(item.orderRecord.orderId, item.productItem.id)
+            }
+        }
+        val itemTouchHelper = ItemTouchHelper(callBack)
+        itemTouchHelper.attachToRecyclerView(rvOrderBodyList)
     }
 
     private fun observeViewModel() {

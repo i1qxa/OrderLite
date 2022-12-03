@@ -4,19 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.orderlite.R
 import com.example.orderlite.databinding.FragmentListOrderBinding
 import com.example.orderlite.presentation.FragmentNameInstaller
 import com.example.orderlite.presentation.order_record.order_body_list.OrderBodyFragment
-import com.example.orderlite.presentation.order_record.order_body_list.REQUEST_ORDER_ID
 import com.example.orderlite.presentation.product.list_product_items.MODE_LIST_VIEW
 import com.example.orderlite.presentation.product.list_product_items.MODE_MULTI_CHOOSE
-import com.example.orderlite.presentation.product.list_product_items.ORDER_ID
 import com.example.orderlite.presentation.units_o_m.unit_o_m.SCREEN_MODE
 
 fun Fragment.launchNewFragment(fragment:Fragment) = run {
@@ -76,19 +74,29 @@ class ListOrderFragment : Fragment() {
             )
         }
         rvAdapter.orderItemClickListener = {
-            if (screenMode == MODE_LIST_VIEW) this.launchNewFragment(OrderBodyFragment.newInstance(
-                it.id))
-            else {
-                parentFragmentManager.setFragmentResult(
-                    REQUEST_ORDER_ID,
-                    bundleOf(ORDER_ID to it.id)
-                )
-                parentFragmentManager.popBackStack()
+            this.launchNewFragment(OrderBodyFragment.newInstance(it.id))
+        }
+        setupItemSwipeListener(binding.rvOrderList)
+    }
+
+    private fun setupItemSwipeListener(rvOrderList:RecyclerView){
+        val callback = object :
+        ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT){
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder,
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val item = rvAdapter.currentList[viewHolder.adapterPosition]
+                viewModel.deleteOrder(item.id)
             }
         }
-        rvAdapter.orderItemLongClickListener = {
-            viewModel.deleteOrder(it.id)
-        }
+        val itemTouchHelper = ItemTouchHelper(callback)
+        itemTouchHelper.attachToRecyclerView(rvOrderList)
     }
 
     private fun observeViewModel() {
