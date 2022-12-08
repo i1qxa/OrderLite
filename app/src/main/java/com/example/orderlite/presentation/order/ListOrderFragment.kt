@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -13,8 +14,10 @@ import com.example.orderlite.R
 import com.example.orderlite.databinding.FragmentListOrderBinding
 import com.example.orderlite.presentation.FragmentNameInstaller
 import com.example.orderlite.presentation.order_record.order_body_list.OrderBodyFragment
+import com.example.orderlite.presentation.order_record.order_body_list.REQUEST_ORDER_ID
 import com.example.orderlite.presentation.product.list_product_items.MODE_LIST_VIEW
 import com.example.orderlite.presentation.product.list_product_items.MODE_MULTI_CHOOSE
+import com.example.orderlite.presentation.product.list_product_items.ORDER_ID
 import com.example.orderlite.presentation.units_o_m.unit_o_m.SCREEN_MODE
 
 fun Fragment.launchNewFragment(fragment:Fragment) = run {
@@ -74,7 +77,16 @@ class ListOrderFragment : Fragment() {
             )
         }
         rvAdapter.orderItemClickListener = {
-            this.launchNewFragment(OrderBodyFragment.newInstance(it.id))
+            when(screenMode){
+                MODE_LIST_VIEW -> this.launchNewFragment(OrderBodyFragment.newInstance(it.id))
+                MODE_MULTI_CHOOSE -> {
+                    parentFragmentManager.setFragmentResult(
+                        REQUEST_ORDER_ID,
+                        bundleOf(ORDER_ID to it.id)
+                    )
+                    parentFragmentManager.popBackStack()
+                }
+            }
         }
         setupItemSwipeListener(binding.rvOrderList)
     }
